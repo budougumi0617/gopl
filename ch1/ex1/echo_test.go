@@ -1,9 +1,8 @@
-package main
+package ch1ex1
 
 import (
 	"testing"
 )
 
-func TestReturnFail(t *testing.T) {
-	t.Error("Always error.")
+func TestDummy(t *testing.T) {
 }

@@ -1,5 +1,5 @@
 //Prints its command-line argments
-package main
+package ch1ex1
 import (
 	"fmt"
 	"os"
