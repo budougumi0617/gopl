@@ -1,4 +1,4 @@
-package ch01ex01
+package ex01
 
 import (
 	"testing"

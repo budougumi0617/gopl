@@ -1,13 +1,15 @@
-//Prints its command-line argments
-package ch01ex01
+//Package ex01 Customize echo
+package ex01
+
 import (
 	"fmt"
 	"os"
 )
 
-func main(){
+//Prints its command-line argments
+func main() {
 	var s, sep string
-	for i:= 1; i < len(os.Args); i++ {
+	for i := 1; i < len(os.Args); i++ {
 		s += sep + os.Args[i]
 		sep = " "
 	}
