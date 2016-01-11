@@ -11,10 +11,10 @@ func TestEcho(t *testing.T) {
 		args     []string
 		expected string
 	}{
-		{[]string{"echo"}, "echo\n"},
-		{[]string{"echo", "one", "two", "three"}, "echo one two three\n"},
-		{[]string{"echo", "a", "b", "c"}, "echo a b c\n"},
-		{[]string{"echo", "1", "2", "3"}, "echo 1 2 3\n"},
+		{[]string{"echo"}, "[0] echo\n"},
+		{[]string{"echo", "one", "two", "three"}, "[0] echo\n[1] one\n[2] two\n[3] three\n"},
+		{[]string{"echo", "a", "b", "c"}, "[0] echo\n[1] a\n[2] b\n[3] c\n"},
+		{[]string{"echo", "1", "2", "3"}, "[0] echo\n[1] 1\n[2] 2\n[3] 3\n"},
 	}
 
 	for _, test := range tests {
