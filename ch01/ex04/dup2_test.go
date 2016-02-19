@@ -13,7 +13,7 @@ func TestEcho(t *testing.T) {
 		input    string
 		expected string
 	}{
-		{[]string{"dup2", "test_file1.txt", "test_file2.txt"}, "", "ccc\t2\n\n	test_file1.txt\n\ttest_file1.txt\n"},
+		{[]string{"dup2", "test_file1.txt", "test_file2.txt"}, "", "ccc\t2\n\n	test_file1.txt\n"},
 	}
 
 	for _, test := range tests {
