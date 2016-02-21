@@ -12,7 +12,7 @@ var in io.Reader = os.Stdin   // modified during testing
 var err = os.Stderr           // modified during testing
 
 func main() {
-	counts := make(map[string][]string)
+	counts := make(map[string]map[string]int)
 	files := os.Args[1:]
 	if len(files) == 0 {
 		fmt.Fprintln(out, "CTRL+C Finish input")
@@ -28,31 +28,34 @@ func main() {
 			f.Close()
 		}
 	}
-	fmt.Fprintf(out, "\t%v\n", counts)
+	//fmt.Fprintf(out, "\t%v\n", counts)
 	if len(counts) == 0 {
 		return
 	}
+
 	for line, e := range counts {
-		fmt.Fprintf(out, "%s\t%d\n", line, len(e))
-		for _, file := range e {
+		result := 0
+		for _, c := range e {
+			result += c
+		}
+		if result < 2 {
+			continue
+		}
+		fmt.Fprintf(out, "%s\t%d\n", line, result)
+		for file := range e {
 			fmt.Fprintf(out, "\t%s\n", file)
 		}
 	}
 }
 
-func countLines(arg string, f io.Reader, counts map[string][]string) {
+func countLines(arg string, f io.Reader, counts map[string]map[string]int) {
 	input := bufio.NewScanner(f)
 	for input.Scan() {
 
 		if _, ok := counts[input.Text()]; ok != true {
-
-			counts[input.Text()] = make([]string, 0)
-			counts[input.Text()] = append(counts[input.Text()], arg)
-		} else {
-
-			counts[input.Text()] = append(counts[input.Text()], arg)
-
+			counts[input.Text()] = make(map[string]int, 0)
 		}
+		counts[input.Text()][arg]++
 	}
 
 }
