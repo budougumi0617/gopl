@@ -44,13 +44,16 @@ func TestSavePoster(t *testing.T) {
 	var tests = []struct {
 		title string
 		url   string
+		exist bool
 	}{
-		{"result", "https://github.com/budougumi0617/zsh-presentation/blob/master/image/display.jpg"},
+		{"result", "https://github.com/budougumi0617/zsh-presentation/blob/master/image/display.jpg", true},
+		{"result", "N/A", false},
+		{"result", "https://github.com/budougumi0617/no_exist", false},
 	}
 	for _, test := range tests {
 		p := Poster{test.title, test.url}
 		SavePoster(p)
-		if _, err := os.Stat("./" + test.title + ".jpg"); err != nil {
+		if _, err := os.Stat("./" + test.title + ".jpg"); test.exist && err != nil {
 			t.Errorf("%v is not exist, %v", test.title, err)
 		}
 	}

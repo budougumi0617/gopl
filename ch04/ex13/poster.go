@@ -57,15 +57,15 @@ func SavePoster(p Poster) {
 
 	resp, err := http.Get(p.Poster)
 	if err != nil {
-		fmt.Printf("Error\n")
+		fmt.Fprintf(stdout, "Error\n")
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		fmt.Printf("Error StatusCode %v\n", resp.StatusCode)
+		fmt.Fprintf(stdout, "Error StatusCode %v\n", resp.StatusCode)
 	}
 	data, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		fmt.Printf("Error read\n")
+		fmt.Fprintf(stdout, "Error read\n")
 	}
 	ioutil.WriteFile("./"+p.Title+".jpg", data, 0644)
 }

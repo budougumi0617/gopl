@@ -8,9 +8,17 @@ import (
 )
 
 func TestSearchIssues(t *testing.T) {
-	terms := []string{"budougumi0617/gotraining"}
-	if _, err := SearchIssues(terms); err != nil {
-		t.Errorf("%v\n", err)
+	var tests = []struct {
+		terms  []string
+		result bool
+	}{
+		{[]string{"budougumi0617/gotraining"}, true},
+		{[]string{"budougumi0617/non_url"}, false},
+	}
+	for _, test := range tests {
+		if _, err := SearchIssues(test.terms); test.result && err != nil {
+			t.Errorf("%v\n", err)
+		}
 	}
 }
 
