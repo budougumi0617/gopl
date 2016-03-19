@@ -1,4 +1,5 @@
-# Exercise 5.
+# Exercise 5.1
+Change the `findlinks` program to traverse the `n.FirstChild` linked list using recursive calls to `visit` instead of a loop.
 
 ---
 # 練習問題 5.1
