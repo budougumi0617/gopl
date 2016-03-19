@@ -6,6 +6,9 @@ before_install:
     - go get github.com/mattn/goveralls
     - if ! go get code.google.com/p/go.tools/cmd/cover; then go get golang.org/x/tools/cmd/cover; fi
 script:
+    - pwd
+    - ls
+    - cd github.com/budougumi0617/GoTraining/
     - $HOME/gopath/bin/goveralls -repotoken $COVERALLS_TOKEN ./...
 env:
     global:
