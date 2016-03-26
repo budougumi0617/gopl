@@ -1,4 +1,5 @@
-# Exercise 5.
+# Exercise 5.15
+Write variadic functions `max` and `min`, analogous to `sum`. What should these functions do when called with no arguments? Write variants that require ad least one argument.
 
 ---
 # 練習問題 5.15

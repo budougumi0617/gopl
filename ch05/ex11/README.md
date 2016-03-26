@@ -1,4 +1,5 @@
-# Exercise 5.
+# Exercise 5.11
+The instructor of the linear algebra course decides that caluculus is now a prerequisite. Extend the `topoSort` function to report cycles.
 
 ---
 # 練習問題 5.11

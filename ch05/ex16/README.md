@@ -1,4 +1,5 @@
-# Exercise 5.
+# Exercise 5.16
+Write a variadic version of `stirngs.Join`.
 
 ---
 # 練習問題 5.16

@@ -1,4 +1,5 @@
-# Exercise 5.
+# Exercise 5.5
+Implement `countWordsAndImages`.(See [Exercise 4.9](../../ch04/ex09/README.md) for word-splitting)
 
 ---
 # 練習問題 5.5

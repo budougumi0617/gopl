@@ -1,4 +1,5 @@
-# Exercise 5.
+# Exercise 5.19
+Use `panic` and `recover` to write a function that contains no `return` statement yet returns a non-zero value.
 
 ---
 # 練習問題 5.19

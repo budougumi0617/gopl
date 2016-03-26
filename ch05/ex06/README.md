@@ -1,4 +1,5 @@
-# Exercise 5.
+# Exercise 5.6
+Modify the `corner` function in `gopl.io/ch3/surface`(S3.2) to use named results and a bare return statement.
 
 ---
 # 練習問題 5.6

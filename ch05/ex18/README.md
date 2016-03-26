@@ -1,4 +1,5 @@
-# Exercise 5.
+# Exercise 5.18
+Without changing its behavior, rewrite the `fetch` function to use `defer` to close the writable.
 
 ---
 # 練習問題 5.18

@@ -1,4 +1,5 @@
-# Exercise 5.
+# Exercise 5.13
+Modify `crawl` to make local copies of the pages it finds, creating directories as necessary. Don't make copies of pages that come from a different domain. For example, if the original pages comes from `golang.org`, save all files from there, but exclude ones from `vimeo.com`.
 
 ---
 # 練習問題 5.13

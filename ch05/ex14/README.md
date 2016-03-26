@@ -1,4 +1,5 @@
-# Exercise 5.
+# Exercise 5.14
+Use the `breadFirst` function to explore a different structure. For example, you could use the course dependencies from the `topoSort` example (a directed graph), the file system hierarchy downloaded from your city government's web site (an undirected graph).
 
 ---
 # 練習問題 5.14

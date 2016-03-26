@@ -1,4 +1,5 @@
-# Exercise 5.
+# Exercise 5.17
+Write a variadic function `ElementByTagName` that given an HTML node tree and zero or moe names, returns all the elements that match one of those names. Here are two example calls:
 
 ---
 # 練習問題 5.17
