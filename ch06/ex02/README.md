@@ -1,4 +1,5 @@
-# Exercise 6.
+# Exercise 6.2
+`(*IntSet).AddAll(...int)` method that allows a list of values to be added, such as `s.AddAll(1, 2, 3)`.
 
 ---
 # 練習問題 6.2

@@ -1,4 +1,5 @@
-# Exercise 6.
+# Exercise 6.4
+Add a methods `Elems` that returns a slice containing the elements of the set, suitable for iterating over with a `range`loop.
 
 ---
 # 練習問題 6.4
