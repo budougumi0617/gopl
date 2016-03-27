@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -62,4 +63,15 @@ func newfetch(url string) (filename string, n int64, err error) {
 	n, err = io.Copy(f, resp.Body)
 	return local, n, err
 
+}
+
+func main() {
+	for _, url := range os.Args[1:] {
+		local, n, err := fetch(url)
+		if err != nil {
+			fmt.Fprintf(stderr, "fetch %s: %v\n", url, err)
+			continue
+		}
+		fmt.Fprintf(stdout, "%s => %s (%d bytes).\n", url, local, n)
+	}
 }
