@@ -1,5 +1,5 @@
 # Exercise 6.1
-Implment these additional methods:
+Implement these additional methods:
 
 ---
 # 練習問題 6.1
