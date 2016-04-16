@@ -10,22 +10,22 @@ var stdout io.Writer = os.Stdout // modified during testing
 
 // prereqs maps computer science courses to their prerequisites.
 var prereqs = map[string]map[string]bool{
-	"algorithms": map[string]bool{"data structures": false},
-	"calculus":   map[string]bool{"linear algebra": false},
+	"algorithms": {"data structures": false},
+	"calculus":   {"linear algebra": false},
 
-	"compilers": map[string]bool{
+	"compilers": {
 		"data structures":       false,
 		"formal languages":      false,
 		"computer organization": false,
 	},
 
-	"data structures":       map[string]bool{"discrete math": false},
-	"databases":             map[string]bool{"data structures": false},
-	"discrete math":         map[string]bool{"intro to programming": false},
-	"formal languages":      map[string]bool{"discrete math": false},
-	"networks":              map[string]bool{"operating systems": false},
-	"operating systems":     map[string]bool{"data structures": false, "computer organization": false},
-	"programming languages": map[string]bool{"data structures": false, "computer organization": false},
+	"data structures":       {"discrete math": false},
+	"databases":             {"data structures": false},
+	"discrete math":         {"intro to programming": false},
+	"formal languages":      {"discrete math": false},
+	"networks":              {"operating systems": false},
+	"operating systems":     {"data structures": false, "computer organization": false},
+	"programming languages": {"data structures": false, "computer organization": false},
 }
 
 func main() {
