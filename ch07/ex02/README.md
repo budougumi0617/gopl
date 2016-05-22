@@ -7,5 +7,14 @@ Write a function `CountingWriter` with the signature below that, given an `io.Wr
 下記のシグネチャを持つ関数`CounterWriter`を書きなさい。`io.Writer`が与えられたなら、それを包む新たな`Writer`と`int64`変数へのポインタを返します。その変数は新たな`Writer`に書き込まれたバイト数を常に保持しています。
 
 ````go
-func CounterWriter(w io.Writer) (io.Witer, *int64)
+func CounterWriter(w io.Writer) (io.Writer, *int64)
 ````
+
+
+# Result
+```bash
+$  go run counterwriter.go
+test input
+test input
+Byte count 22
+```
