@@ -3,3 +3,6 @@ use the `html/template` package(Sec4.6) to replace `printTracks` with a function
 
 ---
 # 練習問題 7.9
+`html/template`パッケージ(4.6節)を使用して、`printTracks`をHTMLの表として曲を表示する関数で置き換えなさい。列の見出しをクリックしたら表をソートするためにHTTPリクエストを行うように前の練習問題の解答を使用しなさい。
+
+※この練習問題は、ウェブサーバを作成することを意図しています。
