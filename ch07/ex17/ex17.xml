@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<div>
+  <div>
+    <name>Bad attribute</name>
+    <url>???</url>
+  </div>
+  <div2 id="foo">
+    <name>Correct attribute</name>
+    <url>OK!!</url>
+  </div2>
+  <div>
+    <name>Bad attribute</name>
+    <url>???</url>
+  </div>
+</div>
