@@ -10,6 +10,7 @@ import (
 var out io.Writer = os.Stdout // modified during testing
 
 //Prints its command-line argments
+// add another comment
 func main() {
 	for index, arg := range os.Args {
 		s := "[" + strconv.Itoa(index) + "] " + arg // Convert integert to string
