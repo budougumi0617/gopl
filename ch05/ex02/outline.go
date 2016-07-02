@@ -1,3 +1,4 @@
+// Copyright 2016 budougumi0617 All Rights Reserved.
 // Outline prints the outline of an HTML document tree.
 package main
 

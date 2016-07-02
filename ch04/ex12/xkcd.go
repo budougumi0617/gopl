@@ -1,3 +1,4 @@
+// Copyright 2016 budougumi0617 All Rights Reserved.
 // Issues prints a table of GitHub issues matching the search terms.
 package main
 

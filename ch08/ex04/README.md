@@ -3,3 +3,4 @@ Modify the `reverb2` server to use a `sync`. `WaitGroup` per connection to count
 
 ---
 # 練習問題 8.4
+活動している`echo`ゴルーチンを数えるために接続ごとに`sync.WaitGroup`を使うように`reverb2`サーバを修正しなさい。ゼロになったら、練習問題8.3で説明されているようにTCP接続の書き込み側を閉じなさい。その練習問題で修正した`netcat3`クライアントは、標準入力が閉じられた後でも、複数の平行な叫びの最後のエコーを持つことを検証しなさい。

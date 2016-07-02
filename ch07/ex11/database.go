@@ -1,3 +1,4 @@
+// Copyright 2016 budougumi0617 All Rights Reserved.
 // Http4 is an e-commerce server that registers the /list and /price
 // endpoint by calling http.HandleFunc.
 package main

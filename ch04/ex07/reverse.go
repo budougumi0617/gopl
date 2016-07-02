@@ -1,3 +1,4 @@
+// Copyright 2016 budougumi0617 All Rights Reserved.
 // Rev reverses a slice.
 package main
 
