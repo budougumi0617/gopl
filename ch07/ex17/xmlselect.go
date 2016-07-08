@@ -1,3 +1,4 @@
+// Copyright 2016 budougumi0617 All Rights Reserved.
 // Xmlselect prints the text of selected elements of an XML document.
 package main
 

@@ -1,3 +1,4 @@
+// Copyright 2016 budougumi0617 All Rights Reserved.
 // Sorting sorts a music playlist into a variety of orders.
 package main
 

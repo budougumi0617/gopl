@@ -1,3 +1,4 @@
+// Copyright 2016 budougumi0617 All Rights Reserved.
 // Comma prints its argument numbers with a comma at each power of 1000.
 package main
 

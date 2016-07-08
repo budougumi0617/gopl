@@ -1,3 +1,4 @@
+// Copyright 2016 budougumi0617 All Rights Reserved.
 // Mandelbrot emits a PNG image of the Mandelbrot fractal.
 package main
 
