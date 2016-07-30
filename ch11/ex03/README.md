@@ -1,5 +1,5 @@
-# Exercise 11.
-
+# Exercise 11.3
+`TestRandomPalindromes` only tests palindromes. Write a randomized test that generates and verifies non-palindromes.
 
 ---
 # 練習問題 11.3
