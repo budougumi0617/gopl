@@ -1,5 +1,5 @@
-# Exercise 11.
-
+# Exercise 11.4
+Modify `randomPalindrome` to exercise `IsPalindrome`'s handling of punctuation and spaces.
 
 ---
 # 練習問題 11.4

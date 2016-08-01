@@ -1,5 +1,5 @@
-# Exercise 11.
-
+# Exercise 11.5
+Extend `TestSplit` to use table of inputs and expected outputs.
 
 ---
 # 練習問題 11.5
