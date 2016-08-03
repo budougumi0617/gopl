@@ -12,6 +12,12 @@ type MapIntSet struct {
 	is map[int]bool
 }
 
+func main() {
+	x := NewMapIntSet()
+	x.AddAll(1, 2, 3)
+	fmt.Printf("%q\n", x)
+}
+
 // NewMapIntSet returns MapIntSet.
 func NewMapIntSet() *MapIntSet {
 	return &MapIntSet{map[int]bool{}}
