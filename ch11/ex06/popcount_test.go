@@ -14,6 +14,8 @@ func Example_main() {
 
 	// Output:
 	// result 32
+	// result 32
+	// result 32
 }
 
 func bench(n int, f func(uint64) int) {

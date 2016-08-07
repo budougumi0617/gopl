@@ -18,6 +18,8 @@ func init() {
 
 func main() {
 	n, _ := strconv.ParseUint(os.Args[1], 0, 64)
+	fmt.Printf("result %v\n", PopCountByTable(n))
+	fmt.Printf("result %v\n", PopCountByClear(n))
 	fmt.Printf("result %v\n", PopCountByShifting(n))
 }
 
