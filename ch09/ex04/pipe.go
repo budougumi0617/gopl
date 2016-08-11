@@ -1,6 +1,8 @@
 // Copyright 2016 budougumi0617 All Rights Reserved.
 package main
 
+import "fmt"
+
 func pipeline(stages int) (in chan int, out chan int) {
 	out = make(chan int)
 	first := out
@@ -15,4 +17,8 @@ func pipeline(stages int) (in chan int, out chan int) {
 		}(in, out)
 	}
 	return first, out
+}
+
+func main() {
+	fmt.Println("Exercise is in test file.")
 }

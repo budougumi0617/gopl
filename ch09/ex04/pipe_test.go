@@ -13,3 +13,9 @@ func BenchmarkPipeline(b *testing.B) {
 	}
 	close(in)
 }
+
+func Example_main() {
+	main()
+	// Output:
+	// Exercise is in test file.
+}
