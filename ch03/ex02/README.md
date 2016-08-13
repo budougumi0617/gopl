@@ -1,4 +1,5 @@
-# Exercise 3.
+# Exercise 3.2
+Experiment with visualizations of other functions from the `math` package. Can you produce an egg box, moguls, or a saddle?
 
 ---
 # 練習問題 3.2

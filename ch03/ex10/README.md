@@ -1,4 +1,5 @@
-# Exercise 3.
+# Exercise 3.10
+Write a non-recursive version of `comma`, using `bytes.Buffer` instead of string concatenation.
 
 ---
 # 練習問題 3.10
