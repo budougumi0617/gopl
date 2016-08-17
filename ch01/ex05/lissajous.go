@@ -13,7 +13,7 @@ import (
 )
 
 var out io.Writer = os.Stdout // modified during testing
-var pallete = []color.Color{color.RGBA{0x00, 0x00, 0x00, 0xff},
+var palette = []color.Color{color.RGBA{0x00, 0x00, 0x00, 0xff},
 	color.RGBA{0x00, 0xff, 0x00, 0xff}}
 
 const (
@@ -39,7 +39,7 @@ func lissajous(out io.Writer) {
 	phase := 0.0
 	for i := 0; i < nframe; i++ {
 		rect := image.Rect(0, 0, 2*size+1, 2*size+1)
-		img := image.NewPaletted(rect, pallete)
+		img := image.NewPaletted(rect, palette)
 		for t := 0.0; t < cycles*2*math.Pi; t += res {
 			x := math.Sin(t)
 			y := math.Sin(t*freq + phase)

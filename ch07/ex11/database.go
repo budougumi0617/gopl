@@ -43,7 +43,7 @@ func (db database) price(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
-// Exemple http://localhost:8000/create?item=test&price=30.0
+// Example http://localhost:8000/create?item=test&price=30.0
 func (db database) create(w http.ResponseWriter, req *http.Request) {
 	item := req.URL.Query().Get("item")
 	price := req.URL.Query().Get("price")
@@ -59,7 +59,7 @@ func (db database) create(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
-// Exemple http://localhost:8000/read?item=test
+// Example http://localhost:8000/read?item=test
 func (db database) read(w http.ResponseWriter, req *http.Request) {
 	item := req.URL.Query().Get("item")
 	if price, exist := db[item]; exist {
@@ -70,7 +70,7 @@ func (db database) read(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
-// Exemple http://localhost:8000/update?item=socks&price=6
+// Example http://localhost:8000/update?item=socks&price=6
 func (db database) update(w http.ResponseWriter, req *http.Request) {
 	item := req.URL.Query().Get("item")
 	price := req.URL.Query().Get("price")
@@ -85,7 +85,7 @@ func (db database) update(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
-// Exemple http://localhost:8000/delete?item=socks
+// Example http://localhost:8000/delete?item=socks
 func (db database) delete(w http.ResponseWriter, req *http.Request) {
 	item := req.URL.Query().Get("item")
 	if _, exist := db[item]; exist {

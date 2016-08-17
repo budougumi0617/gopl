@@ -3,7 +3,7 @@ package main
 
 import "testing"
 
-func Example_Main() {
+func Example_main() {
 	main()
 	// Output:
 	// true

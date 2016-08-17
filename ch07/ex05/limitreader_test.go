@@ -24,7 +24,7 @@ func TestLimitReader(t *testing.T) {
 	}
 }
 
-func ExampleRead() {
+func Example_read() {
 	lr := LimitReader(strings.NewReader("xy"), 2)
 	p := []byte("long")
 	lr.Read(p)

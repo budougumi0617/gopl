@@ -1,4 +1,6 @@
 // Copyright 2016 budougumi0617 All Rights Reserved.
+
+// Package tempconv converts temperature.
 package tempconv
 
 import "fmt"

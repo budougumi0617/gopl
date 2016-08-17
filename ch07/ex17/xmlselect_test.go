@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func ExampleMain() {
+func Example_main() {
 	source, _ := ioutil.ReadFile("./ex17.xml")
 	stdin = bytes.NewBuffer(source)
 	os.Args = []string{"test", "div", "foo", "url"}

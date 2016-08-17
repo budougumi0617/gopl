@@ -1,4 +1,6 @@
 // Copyright 2016 budougumi0617 All Rights Reserved.
+
+// Package limitreader returns a Reader that reads from r but stops with EOF after n bytes.
 package limitreader
 
 import "io"
