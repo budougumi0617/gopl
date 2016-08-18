@@ -3,6 +3,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/budougumi0617/gotraining/ch10/ex02/unarchive"
 	_ "github.com/budougumi0617/gotraining/ch10/ex02/unarchive/tar"
@@ -10,6 +11,11 @@ import (
 )
 
 func main() {
-	fmt.Printf("%s\n", "test")
 	unarchive.List()
+	for _, f := range os.Args[1:] {
+		err := unarchive.Unarchive(f)
+		if err != nil {
+			fmt.Printf("%q", err)
+		}
+	}
 }
