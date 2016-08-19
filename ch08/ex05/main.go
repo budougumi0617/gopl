@@ -31,6 +31,7 @@ func main() {
 		for i := range yranges {
 			yranges[i] = make([]int, 0)
 		}
+		// Divide height by number of goroutine.
 		for y := 0; y < height; y++ {
 			i := y % num
 			yranges[i] = append(yranges[i], y)
