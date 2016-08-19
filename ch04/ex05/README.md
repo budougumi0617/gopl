@@ -1,4 +1,5 @@
-# Exercise 4.
+# Exercise 4.5
+Write an in-place function to eliminate adjacent duplicates in a `[]string` slice.
 
 ---
 # 練習問題 4.5

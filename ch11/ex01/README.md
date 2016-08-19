@@ -1,5 +1,5 @@
-# Exercise 11.
-
+# Exercise 11.1
+Write tests for the `charcount` program in Section 4.3.
 
 ---
 # 練習問題 11.1

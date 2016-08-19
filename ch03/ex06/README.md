@@ -1,4 +1,5 @@
-# Exercise 3.
+# Exercise 3.6
+superSampling is a technique to reduce the effect of pixelation by computing the color value at several points within each pixel and taking the average. The simplest method is to divide each pixel into four "subpixels". Implement it. 
 
 ---
 # 練習問題 3.6
