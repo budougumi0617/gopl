@@ -20,3 +20,29 @@ type Element struct {
   Children []Node
 }
 ````
+
+
+# Result
+
+````shel
+budougumi0617@~/git/gotraining/ch07/ex18 (remainingwork@GoTraining)
+$  cat ../ex17/ex17.xml && echo ----------- && cat ../ex17/ex17.xml| go run decoder.go
+<?xml version="1.0" encoding="UTF-8" ?>
+<div>
+  <div>
+    <name>Bad attribute</name>
+    <url>???</url>
+  </div>
+  <div2 id="foo">
+    <name>Correct attribute</name>
+    <url>OK!!</url>
+  </div2>
+  <div>
+    <name>Bad attribute</name>
+    <url>???</url>
+  </div>
+</div>
+-----------
+Result:
+&main.Element{Type:xml.Name{Space:"", Local:"div"}, Attr:[]xml.Attr{}, Children:[]main.Node{"\n  ", (*main.Element)(0xc8200740f0), "\n  ", (*main.Element)(0xc8200741e0), "\n  ", (*main.Element)(0xc8200742d0), "\n"}}
+````
