@@ -12,12 +12,20 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"sort"
 	"unicode"
 	"unicode/utf8"
 )
 
 var stdout io.Writer = os.Stdout // modified during testing
 var stdin io.Reader = os.Stdin   // modified during testing
+
+// RuneSlice for sorting []rune
+type RuneSlice []rune
+
+func (p RuneSlice) Len() int           { return len(p) }
+func (p RuneSlice) Less(i, j int) bool { return p[i] < p[j] }
+func (p RuneSlice) Swap(i, j int)      { p[i], p[j] = p[j], p[i] }
 
 func main() {
 	counts := make(map[rune]int)    // counts of Unicode characters
@@ -42,8 +50,13 @@ func main() {
 		utflen[n]++
 	}
 	fmt.Fprintf(stdout, "rune\tcount\n")
-	for c, n := range counts {
-		fmt.Fprintf(stdout, "%q\t%d\n", c, n)
+	var runes []rune
+	for rune := range counts {
+		runes = append(runes, rune)
+	}
+	sort.Sort(RuneSlice(runes))
+	for _, r := range runes {
+		fmt.Fprintf(stdout, "%q\t%d\n", r, counts[r])
 	}
 	fmt.Fprint(stdout, "\nlen\tcount\n")
 	for i, n := range utflen {
