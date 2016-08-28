@@ -11,6 +11,7 @@ import (
 var tokens = make(chan struct{}, 20)
 var maxdepth int
 
+// Item has url and depth from the root url.
 type Item struct {
 	url   string
 	depth int
