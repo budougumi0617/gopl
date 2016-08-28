@@ -13,11 +13,12 @@ budougumi0617@~/git/gotraining/ch12/ex01 (ch12ch13_remainingwork@GoTraining)
 $  go run display.go
 Display TestMap (map[main.Key]int):
 TestMap[main.Key.i = 1
-main.Key.structs.arrays[0] = "foo"
-main.Key.structs.arrays[1] = "bar"
+main.Key.structs.b = true
+main.Key.arrays[0] = "foo"
+main.Key.arrays[1] = "bar"
 ] = 10
-TestMap[main.Key.i = 2
-main.Key.structs.arrays[0] = "bar"
-main.Key.structs.arrays[1] = "foo"
-] = 20
+Display TestMapArrays (map[[2]string]int):
+TestMapArrays[[2]string[0] = "foo"
+[2]string[1] = "bar"
+] = 10
 ````

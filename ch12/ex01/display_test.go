@@ -21,20 +21,19 @@ import (
 
 func Example_main() {
 	main()
-	// We don't use an Output: comment since displaying
-	// a map is nondeterministic.
-	/*
-		// Output:
-		// Display TestMap (map[main.Key]int):
-		// TestMap[main.Key.i = 1
-		// main.Key.structs.arrays[0] = "foo"
-		// main.Key.structs.arrays[1] = "bar"
-		// ] = 10
-		// TestMap[main.Key.i = 2
-		// main.Key.structs.arrays[0] = "bar"
-		// main.Key.structs.arrays[1] = "foo"
-		// ] = 20
-	*/
+
+	// Output:
+	// 	Display TestMap (map[main.Key]int):
+	// TestMap[main.Key.i = 1
+	// main.Key.structs.b = true
+	// main.Key.arrays[0] = "foo"
+	// main.Key.arrays[1] = "bar"
+	// ] = 10
+	// Display TestMapArrays (map[[2]string]int):
+	// TestMapArrays[[2]string[0] = "foo"
+	// [2]string[1] = "bar"
+	// ] = 10
+
 }
 
 func Example_slice() {

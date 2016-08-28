@@ -15,20 +15,25 @@ import (
 
 // InKey is included Key
 type InKey struct {
-	arrays [2]string
+	b bool
 }
 
 // Key is defined for check.
 type Key struct {
 	i       int
 	structs InKey
+	arrays  [2]string
 }
 
 func main() {
 	m := make(map[Key]int)
-	m[Key{1, InKey{[2]string{"foo", "bar"}}}] = 10
-	m[Key{2, InKey{[2]string{"bar", "foo"}}}] = 20
+	m[Key{1, InKey{true}, [2]string{"foo", "bar"}}] = 10
+	//m[Key{2, InKey{false}, [2]string{"foo", "bar"}}] = 20
 	Display("TestMap", m)
+	ma := make(map[[2]string]int)
+	ma[[2]string{"foo", "bar"}] = 10
+	//m[Key{2, InKey{false}, [2]string{"foo", "bar"}}] = 20
+	Display("TestMapArrays", ma)
 }
 
 //!+Display
@@ -94,12 +99,8 @@ func display(path string, v reflect.Value) {
 					display(fieldPath, key.Field(i))
 				}
 				display("]", v.MapIndex(key))
-			case reflect.Array:
-			case reflect.Slice:
+			case reflect.Array, reflect.Slice:
 				fmt.Printf("%s[", path)
-				for i := 0; i < key.Len(); i++ {
-					display(fmt.Sprintf("%s[%d]", key.Type().String(), i), key.Index(i))
-				}
 				display(key.Type().String(), key)
 				display("]", v.MapIndex(key))
 			default:
