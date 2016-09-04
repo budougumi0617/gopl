@@ -157,3 +157,22 @@ func TestInterface(t *testing.T) {
 		}
 	}
 }
+
+func TestBool(t *testing.T) {
+	var tests = []struct {
+		b    bool
+		want string
+	}{
+		{true, "t"},
+		{false, "nil"},
+	}
+	for _, test := range tests {
+		actual, err := Marshal(test.b)
+		if err != nil {
+			t.Fatalf("return err %v", err.Error())
+		}
+		if string(actual) != test.want {
+			t.Errorf("Result = %s, Expected %v", actual, test.want)
+		}
+	}
+}
