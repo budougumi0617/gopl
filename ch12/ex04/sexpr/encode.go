@@ -1,10 +1,5 @@
 // Copyright 2016 budougumi0617 All Rights Reserved.
 
-// Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
-// License: https://creativecommons.org/licenses/by-nc-sa/4.0/
-
-// See page 339.
-
 package sexpr
 
 import (
@@ -13,23 +8,17 @@ import (
 	"reflect"
 )
 
-//!+Marshal
-
 // Marshal encodes a Go value in S-expression form.
 func Marshal(v interface{}) ([]byte, error) {
 	var buf bytes.Buffer
-	if err := encode(&buf, reflect.ValueOf(v)); err != nil {
+	if err := encode(&buf, reflect.ValueOf(v), 0); err != nil {
 		return nil, err
-
 	}
 	return buf.Bytes(), nil
 }
 
-//!-Marshal
-
 // encode writes to buf an S-expression representation of v.
-//!+encode
-func encode(buf *bytes.Buffer, v reflect.Value) error {
+func encode(buf *bytes.Buffer, v reflect.Value, indent int) error {
 	switch v.Kind() {
 	case reflect.Invalid:
 		buf.WriteString("nil")
@@ -46,28 +35,32 @@ func encode(buf *bytes.Buffer, v reflect.Value) error {
 		fmt.Fprintf(buf, "%q", v.String())
 
 	case reflect.Ptr:
-		return encode(buf, v.Elem())
+		return encode(buf, v.Elem(), indent)
 
 	case reflect.Array, reflect.Slice: // (value ...)
 		buf.WriteByte('(')
+		indent++
 		for i := 0; i < v.Len(); i++ {
 			if i > 0 {
-				buf.WriteByte(' ')
+				fmt.Fprintf(buf, "\n%*s", indent, "")
 			}
-			if err := encode(buf, v.Index(i)); err != nil {
+			start := buf.Len()
+			if err := encode(buf, v.Index(i), indent+buf.Len()-start); err != nil {
 				return err
 			}
 		}
 		buf.WriteByte(')')
 
-	case reflect.Struct: // ((name value) ...)
+	case reflect.Struct:
 		buf.WriteByte('(')
+		indent++
 		for i := 0; i < v.NumField(); i++ {
 			if i > 0 {
-				buf.WriteByte(' ')
+				fmt.Fprintf(buf, "\n%*s", indent, "")
 			}
+			start := buf.Len()
 			fmt.Fprintf(buf, "(%s ", v.Type().Field(i).Name)
-			if err := encode(buf, v.Field(i)); err != nil {
+			if err := encode(buf, v.Field(i), indent+buf.Len()-start); err != nil {
 				return err
 			}
 			buf.WriteByte(')')
@@ -76,16 +69,18 @@ func encode(buf *bytes.Buffer, v reflect.Value) error {
 
 	case reflect.Map: // ((key value) ...)
 		buf.WriteByte('(')
+		indent++
 		for i, key := range v.MapKeys() {
 			if i > 0 {
-				buf.WriteByte(' ')
+				fmt.Fprintf(buf, "\n%*s", indent, "")
 			}
+			start := buf.Len()
 			buf.WriteByte('(')
-			if err := encode(buf, key); err != nil {
+			if err := encode(buf, key, 0); err != nil {
 				return err
 			}
 			buf.WriteByte(' ')
-			if err := encode(buf, v.MapIndex(key)); err != nil {
+			if err := encode(buf, v.MapIndex(key), indent+buf.Len()-start); err != nil {
 				return err
 			}
 			buf.WriteByte(')')
@@ -102,12 +97,15 @@ func encode(buf *bytes.Buffer, v reflect.Value) error {
 
 	case reflect.Interface:
 		buf.WriteByte('(')
+
 		fmt.Fprintf(buf, "%s ", v.Type().String())
 		if v.IsNil() {
 			buf.WriteString("nil")
 		} else {
-			fmt.Fprintf(buf, "%s", v.Elem().Type())
-			encode(buf, v.Elem())
+			fmt.Fprintf(buf, "%s\n ", v.Elem().Type())
+			start := buf.Len()
+			indent++
+			encode(buf, v.Elem(), indent+buf.Len()-start)
 
 		}
 		buf.WriteByte(')')
@@ -124,5 +122,3 @@ func encode(buf *bytes.Buffer, v reflect.Value) error {
 	}
 	return nil
 }
-
-//!-encode

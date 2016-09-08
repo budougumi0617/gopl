@@ -54,7 +54,7 @@ func Test(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Marshal failed: %v", err)
 	}
-	t.Logf("Marshal() = %s\n", data)
+	t.Logf("Marshal() = \n%s\n", data)
 
 	// Decode it
 	var movie Movie
@@ -68,12 +68,6 @@ func Test(t *testing.T) {
 		t.Fatal("not equal")
 	}
 
-	// Pretty-print it:
-	data, err = MarshalIndent(strangelove)
-	if err != nil {
-		t.Fatal(err)
-	}
-	t.Logf("MarshalIdent() = %s\n", data)
 }
 
 func TestFloat(t *testing.T) {
@@ -146,7 +140,7 @@ func TestInterface(t *testing.T) {
 		want  string
 	}{
 		{Inner{[]int{1, 2, 3}, []float32{6, 7, 8}},
-			"(sexpr.Interface sexpr.Inner((i (1 2 3)) (f (6.0000 7.0000 8.0000))))"},
+			"(sexpr.Interface sexpr.Inner\n ((i (1\n      2\n      3))\n  (f (6.0000\n      7.0000\n      8.0000))))"},
 		{nil, "(sexpr.Interface nil)"},
 	}
 	for _, test := range tests {
@@ -155,7 +149,7 @@ func TestInterface(t *testing.T) {
 			t.Fatalf("return err %v", err.Error())
 		}
 		if string(get) != test.want {
-			t.Errorf("Result = %v, Expected %v", string(get), test.want)
+			t.Errorf("Result = \n%v, Expected \n%v", string(get), test.want)
 		}
 	}
 }

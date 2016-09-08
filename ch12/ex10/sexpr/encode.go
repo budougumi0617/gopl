@@ -1,10 +1,5 @@
 // Copyright 2016 budougumi0617 All Rights Reserved.
 
-// Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
-// License: https://creativecommons.org/licenses/by-nc-sa/4.0/
-
-// See page 339.
-
 package sexpr
 
 import (
@@ -13,22 +8,16 @@ import (
 	"reflect"
 )
 
-//!+Marshal
-
 // Marshal encodes a Go value in S-expression form.
 func Marshal(v interface{}) ([]byte, error) {
 	var buf bytes.Buffer
 	if err := encode(&buf, reflect.ValueOf(v)); err != nil {
 		return nil, err
-
 	}
 	return buf.Bytes(), nil
 }
 
-//!-Marshal
-
 // encode writes to buf an S-expression representation of v.
-//!+encode
 func encode(buf *bytes.Buffer, v reflect.Value) error {
 	switch v.Kind() {
 	case reflect.Invalid:
@@ -46,7 +35,7 @@ func encode(buf *bytes.Buffer, v reflect.Value) error {
 		fmt.Fprintf(buf, "%q", v.String())
 
 	case reflect.Ptr:
-		return encode(buf, v.Elem())
+		encode(buf, v.Elem())
 
 	case reflect.Array, reflect.Slice: // (value ...)
 		buf.WriteByte('(')
@@ -92,37 +81,27 @@ func encode(buf *bytes.Buffer, v reflect.Value) error {
 		}
 		buf.WriteByte(')')
 
-	case reflect.Float32, reflect.Float64:
-		fmt.Fprintf(buf, "%4.4f", v.Float())
-
-	case reflect.Complex64, reflect.Complex128:
-		buf.WriteString("#C(")
-		fmt.Fprintf(buf, "%4.4f %4.4f", real(v.Complex()), imag(v.Complex()))
-		buf.WriteByte(')')
-
-	case reflect.Interface:
-		buf.WriteByte('(')
-		fmt.Fprintf(buf, "%s ", v.Type().String())
-		if v.IsNil() {
-			buf.WriteString("nil")
-		} else {
-			fmt.Fprintf(buf, "%s", v.Elem().Type())
-			encode(buf, v.Elem())
-
-		}
-		buf.WriteByte(')')
-
-	case reflect.Bool:
+	case reflect.Bool: // t | nil
 		if v.Bool() {
 			buf.WriteByte('t')
 		} else {
 			buf.WriteString("nil")
 		}
 
+	case reflect.Float32, reflect.Float64:
+		fmt.Fprintf(buf, "%g", v.Float())
+
+	case reflect.Complex64, reflect.Complex128:
+		c := v.Complex()
+		fmt.Fprintf(buf, "#C(%g %g)", real(c), imag(c))
+
+	case reflect.Interface:
+		fmt.Fprintf(buf, "(%q ", reflect.Indirect(v).Type())
+		encode(buf, reflect.Indirect(v).Elem())
+		buf.WriteByte(')')
+
 	default: // chan, func
 		return fmt.Errorf("unsupported type: %s", v.Type())
 	}
 	return nil
 }
-
-//!-encode
