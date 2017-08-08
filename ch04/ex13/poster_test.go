@@ -14,6 +14,7 @@ func TestMain(t *testing.T) {
 		{[]string{"poster", "tron"}, "./TRON.jpg"},
 	}
 	for _, test := range tests {
+		t.Skip()
 		os.Args = test.args
 		main()
 		if _, err := os.Stat(test.filename); err != nil {
@@ -27,9 +28,10 @@ func TestSearchPoster(t *testing.T) {
 		keyword  []string
 		expected Poster
 	}{
-//		{[]string{"tron"}, Poster{"TRON", "http://ia.media-imdb.com/images/M/MV5BMTY0OTM4ODM2MF5BMl5BanBnXkFtZTgwMTI0NDIxMDE@._V1_SX300.jpg"}},
+	//		{[]string{"tron"}, Poster{"TRON", "http://ia.media-imdb.com/images/M/MV5BMTY0OTM4ODM2MF5BMl5BanBnXkFtZTgwMTI0NDIxMDE@._V1_SX300.jpg"}},
 	}
 	for _, test := range tests {
+		t.Skip()
 		result, err := SearchPoster(test.keyword)
 		if err != nil {
 			t.Errorf("%v", err)
@@ -52,6 +54,7 @@ func TestSavePoster(t *testing.T) {
 		{"result", "https://github.com/budougumi0617/no_exist", false},
 	}
 	for _, test := range tests {
+		t.Skip()
 		p := Poster{test.title, test.url}
 		SavePoster(p)
 		if _, err := os.Stat("./" + test.title + ".jpg"); test.exist && err != nil {
