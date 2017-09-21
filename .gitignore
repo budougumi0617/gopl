@@ -24,5 +24,10 @@ _testmain.go
 *.test
 *.prof
 
+.swp
+
 # For Mac
 .DS_Store
+
+# For Gogland
+.idea/
