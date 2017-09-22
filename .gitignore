@@ -24,7 +24,7 @@ _testmain.go
 *.test
 *.prof
 
-.swp
+*.swp
 
 # For Mac
 .DS_Store
