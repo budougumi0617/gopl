@@ -6,7 +6,7 @@ package github
 import "time"
 
 // IssuesURL URL of API
-const IssuesURL = "https://api.github.com/search/issues"
+const GitHubAPIURL = "https://api.github.com/repos/"
 
 // IssuesSearchResult search result
 type IssuesSearchResult struct {
