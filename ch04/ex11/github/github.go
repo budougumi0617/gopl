@@ -30,3 +30,9 @@ type User struct {
 	Login   string
 	HTMLURL string `json:"html_url"`
 }
+
+// NewIssue has minimum field of GitHubIssue
+type NewIssue struct {
+	Title string `json:"title"`
+	Body  string `json:"body"`
+}

@@ -12,7 +12,9 @@ import (
 	"strings"
 	"syscall"
 
+	"bytes"
 	"encoding/json"
+	"errors"
 	"golang.org/x/crypto/ssh/terminal"
 	"io"
 	"runtime"
@@ -28,8 +30,9 @@ type Client struct {
 	Username, Password string
 }
 
+// NewClient returns new Client
 func NewClient() *Client {
-	return &Client{URL: GitHubAPIURL + "budougumi0617/gopl/", HTTPClient: http.DefaultClient}
+	return &Client{URL: GitHubAPIURL + "ichigogumi/ichigogumi.github.io/", HTTPClient: http.DefaultClient}
 }
 
 // Query sets username and password.
@@ -71,21 +74,54 @@ func decodeBody(resp *http.Response, out interface{}) error {
 	return decoder.Decode(out)
 }
 
-func (c *Client) GetIssues() {
+// GetIssue returned specified issue.
+func (c *Client) GetIssue() (*Issue, error) {
 	req, _ := c.newRequest(context.Background(), "GET", "issues/15", nil)
 
 	resp, err := c.HTTPClient.Do(req)
 	if err != nil {
-		fmt.Errorf("Do failed: %v", err)
+		fmt.Errorf("Do failed: %v\n", err)
+		return nil, err
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		fmt.Errorf("create failed: %s", resp.Status)
+		fmt.Errorf("GET failed: %s\n", resp.Status)
+		return nil, errors.New(resp.Status)
 	}
 
 	var issue Issue
 	if err := decodeBody(resp, &issue); err != nil {
-		fmt.Errorf("create failed: %v", err)
+		fmt.Errorf("create failed: %v\n", err)
+		return nil, err
 	}
-	fmt.Printf("issue %v\n", issue)
+	return &issue, nil
+}
+
+// CreateIssue posts new issue.
+func (c *Client) CreateIssue(title, body string) (*Issue, error) {
+	issue := NewIssue{title, body}
+	json, err := json.Marshal(&issue)
+	if err != nil {
+		fmt.Errorf("Failed marshal %v\n", err)
+		return nil, err
+	}
+
+	req, _ := c.newRequest(context.Background(), "POST", "issues", bytes.NewReader(json))
+
+	resp, err := c.HTTPClient.Do(req)
+	if err != nil {
+		fmt.Errorf("Do failed %v\n", err)
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusCreated {
+		fmt.Errorf("POST failed: %s", resp.Status)
+		return nil, errors.New(resp.Status)
+	}
+
+	var created Issue
+	if err := decodeBody(resp, &created); err != nil {
+		fmt.Errorf("Cannot get issue: %v\n", err)
+	}
+	return &created, nil
 }

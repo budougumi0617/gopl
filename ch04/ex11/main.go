@@ -10,5 +10,5 @@ func main() {
 	c := github.NewClient()
 	c.Query()
 
-	c.GetIssues()
+	c.CreateIssue("Client test", "Created from CLI.")
 }
