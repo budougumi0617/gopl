@@ -125,3 +125,45 @@ func (c *Client) CreateIssue(title, body string) (*Issue, error) {
 	}
 	return &created, nil
 }
+
+// CloseIssue changes status to "close".
+func (c *Client) CloseIssue(no int) (*Issue, error) {
+	issue := CloseIssue{"close"}
+
+	return c.patch(&issue, no)
+}
+
+// EditIssue changes title and body.
+func (c *Client) EditIssue(title, body string, no int) (*Issue, error) {
+	issue := NewIssue{title, body}
+
+	return c.patch(&issue, no)
+}
+
+func (c *Client) patch(issue interface{}, no int) (*Issue, error) {
+	json, err := json.Marshal(&issue)
+	if err != nil {
+		fmt.Errorf("Marshal failed %v\n", err)
+		return nil, err
+	}
+
+	url := "issues/" + fmt.Sprintf("%d", no)
+	req, _ := c.newRequest(context.Background(), "PATCH", url, bytes.NewReader(json))
+
+	resp, err := c.HTTPClient.Do(req)
+	if err != nil {
+		fmt.Errorf("Do failed %v\n", err)
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		fmt.Errorf("PATCH failed: %s", resp.Status)
+		return nil, errors.New(resp.Status)
+	}
+
+	var patchedIssue Issue
+	if err := decodeBody(resp, &patchedIssue); err != nil {
+		fmt.Errorf("Cannot get issue: %v\n", err)
+	}
+	return &patchedIssue, nil
+}

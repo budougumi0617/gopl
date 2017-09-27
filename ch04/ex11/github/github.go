@@ -36,3 +36,7 @@ type NewIssue struct {
 	Title string `json:"title"`
 	Body  string `json:"body"`
 }
+
+type CloseIssue struct {
+	State string `json:"state"`
+}
