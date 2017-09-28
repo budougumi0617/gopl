@@ -4,9 +4,7 @@ package main
 
 import (
 	"flag"
-
 	"fmt"
-	"github.com/budougumi0617/gopl/ch04/ex11/github"
 )
 
 func main() {
@@ -30,14 +28,17 @@ func main() {
 	flag.BoolVar(&printFlag, "print", false, "print an issue")
 	flag.BoolVar(&printFlag, "p", false, "print an issue")
 	flag.Parse()
-
-	c := github.NewClient()
-	c.Query()
-
-	issue, err := c.GetIssue()
-	if err != nil {
-		fmt.Println(err)
-		return
+	switch {
+	case createFlag:
+		b := body
+		fmt.Printf("body = %v\n", b)
+	case closeFlag:
+	case editFlag:
+	case printFlag:
 	}
-	fmt.Printf("%v\n", issue)
+
+	//c := github.NewClient()
+	//c.Query()
+
+	//c.CreateIssue("Client test", "Created from CLI.")
 }
