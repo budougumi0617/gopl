@@ -47,6 +47,7 @@ func (c *Client) Query() {
 	bytesPassword, err := terminal.ReadPassword(int(syscall.Stdin))
 	if err != nil {
 		fmt.Printf("\nPassword error %v\n", err)
+		return
 	}
 	c.Password = string(bytesPassword)
 	fmt.Print("\n")
@@ -76,22 +77,19 @@ func decodeBody(resp *http.Response, out interface{}) error {
 
 // GetIssue returned specified issue.
 func (c *Client) GetIssue() (*Issue, error) {
-	req, _ := c.newRequest(context.Background(), "GET", "issues/15", nil)
+	req, _ := c.newRequest(context.Background(), "GET", "issues/1", nil)
 
 	resp, err := c.HTTPClient.Do(req)
 	if err != nil {
-		fmt.Errorf("Do failed: %v\n", err)
 		return nil, err
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		fmt.Errorf("GET failed: %s\n", resp.Status)
 		return nil, errors.New(resp.Status)
 	}
 
 	var issue Issue
 	if err := decodeBody(resp, &issue); err != nil {
-		fmt.Errorf("create failed: %v\n", err)
 		return nil, err
 	}
 	return &issue, nil
@@ -102,7 +100,6 @@ func (c *Client) CreateIssue(title, body string) (*Issue, error) {
 	issue := NewIssue{title, body}
 	json, err := json.Marshal(&issue)
 	if err != nil {
-		fmt.Errorf("Failed marshal %v\n", err)
 		return nil, err
 	}
 
@@ -110,18 +107,16 @@ func (c *Client) CreateIssue(title, body string) (*Issue, error) {
 
 	resp, err := c.HTTPClient.Do(req)
 	if err != nil {
-		fmt.Errorf("Do failed %v\n", err)
 		return nil, err
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusCreated {
-		fmt.Errorf("POST failed: %s", resp.Status)
 		return nil, errors.New(resp.Status)
 	}
 
 	var created Issue
 	if err := decodeBody(resp, &created); err != nil {
-		fmt.Errorf("Cannot get issue: %v\n", err)
+		return nil, err
 	}
 	return &created, nil
 }
