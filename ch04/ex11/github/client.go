@@ -76,8 +76,8 @@ func decodeBody(resp *http.Response, out interface{}) error {
 }
 
 // GetIssue returned specified issue.
-func (c *Client) GetIssue() (*Issue, error) {
-	req, _ := c.newRequest(context.Background(), "GET", "issues/1", nil)
+func (c *Client) GetIssue(no int) (*Issue, error) {
+	req, _ := c.newRequest(context.Background(), "GET", "issues/"+fmt.Sprintf("%d", no), nil)
 
 	resp, err := c.HTTPClient.Do(req)
 	if err != nil {

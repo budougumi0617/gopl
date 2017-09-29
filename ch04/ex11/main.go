@@ -5,6 +5,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
+
+	"github.com/budougumi0617/gopl/ch04/ex11/github"
 )
 
 func main() {
@@ -28,6 +31,10 @@ func main() {
 	flag.BoolVar(&printFlag, "print", false, "print an issue")
 	flag.BoolVar(&printFlag, "p", false, "print an issue")
 	flag.Parse()
+
+	c := github.NewClient()
+	c.Query()
+
 	switch {
 	case createFlag:
 		b := body
@@ -35,10 +42,24 @@ func main() {
 	case closeFlag:
 	case editFlag:
 	case printFlag:
+		if issueNo < 1 {
+			fmt.Print("Need to set issue number by \"-number\" or \"-n\"\n")
+			os.Exit(1)
+		}
+		issue, err := c.GetIssue(issueNo)
+		if err != nil {
+			fmt.Printf("%v\n", err)
+			os.Exit(1)
+		}
+		fmt.Printf("%v", issue)
 	}
+}
 
-	//c := github.NewClient()
-	//c.Query()
-
-	//c.CreateIssue("Client test", "Created from CLI.")
+func define(name string) (defined bool) {
+	flag.VisitAll(func(f *flag.Flag) {
+		if f.Name == name {
+			defined = true
+		}
+	})
+	return
 }
