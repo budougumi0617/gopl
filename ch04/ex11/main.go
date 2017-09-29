@@ -50,12 +50,14 @@ func main() {
 			fmt.Print("Need to set issue number by \"-number\" or \"-n\"\n")
 			os.Exit(1)
 		}
+		// TODO Need to support editing body by an editor.
 		issue, err = c.CloseIssue(issueNo)
 	case editFlag:
 		if issueNo < 1 {
 			fmt.Print("Need to set issue number by \"-number\" or \"-n\"\n")
 			os.Exit(1)
 		}
+		// TODO Need to support editing body by an editor.
 		issue, err = c.EditIssue(title, body, issueNo)
 	case printFlag:
 		if issueNo < 1 {
