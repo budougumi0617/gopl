@@ -18,6 +18,7 @@ var (
 
 func main() {
 
+	// Set flags
 	flag.IntVar(&issueNo, "number", 0, "issue number")
 	flag.IntVar(&issueNo, "n", 0, "issue number")
 	flag.StringVar(&title, "title", "", "issue title")
@@ -39,32 +40,35 @@ func main() {
 	c := github.NewClient()
 	c.Query()
 
+	var issue *github.Issue
+	var err error
 	switch {
 	case createFlag:
-		b := body
-		fmt.Printf("body = %v\n", b)
+		issue, err = c.CreateIssue(title, body)
 	case closeFlag:
 		if issueNo < 1 {
 			fmt.Print("Need to set issue number by \"-number\" or \"-n\"\n")
 			os.Exit(1)
 		}
+		issue, err = c.CloseIssue(issueNo)
 	case editFlag:
 		if issueNo < 1 {
 			fmt.Print("Need to set issue number by \"-number\" or \"-n\"\n")
 			os.Exit(1)
 		}
+		issue, err = c.EditIssue(title, body, issueNo)
 	case printFlag:
 		if issueNo < 1 {
 			fmt.Print("Need to set issue number by \"-number\" or \"-n\"\n")
 			os.Exit(1)
 		}
-		issue, err := c.GetIssue(issueNo)
-		if err != nil {
-			fmt.Printf("%v\n", err)
-			os.Exit(1)
-		}
-		fmt.Printf("%+v", issue)
+		issue, err = c.GetIssue(issueNo)
 	}
+	if err != nil {
+		fmt.Printf("%v\n", err)
+		os.Exit(1)
+	}
+	fmt.Printf("%+v\n", issue)
 }
 
 func validateFlag() {
