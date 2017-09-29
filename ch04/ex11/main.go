@@ -10,12 +10,14 @@ import (
 	"github.com/budougumi0617/gopl/ch04/ex11/github"
 )
 
+var (
+	issueNo                                    int
+	title, body                                string
+	createFlag, closeFlag, editFlag, printFlag bool
+)
+
 func main() {
-	var (
-		issueNo                                    int
-		title, body                                string
-		createFlag, closeFlag, editFlag, printFlag bool
-	)
+
 	flag.IntVar(&issueNo, "number", 0, "issue number")
 	flag.IntVar(&issueNo, "n", 0, "issue number")
 	flag.StringVar(&title, "title", "", "issue title")
@@ -32,6 +34,8 @@ func main() {
 	flag.BoolVar(&printFlag, "p", false, "print an issue")
 	flag.Parse()
 
+	validateFlag()
+
 	c := github.NewClient()
 	c.Query()
 
@@ -40,7 +44,15 @@ func main() {
 		b := body
 		fmt.Printf("body = %v\n", b)
 	case closeFlag:
+		if issueNo < 1 {
+			fmt.Print("Need to set issue number by \"-number\" or \"-n\"\n")
+			os.Exit(1)
+		}
 	case editFlag:
+		if issueNo < 1 {
+			fmt.Print("Need to set issue number by \"-number\" or \"-n\"\n")
+			os.Exit(1)
+		}
 	case printFlag:
 		if issueNo < 1 {
 			fmt.Print("Need to set issue number by \"-number\" or \"-n\"\n")
@@ -51,15 +63,21 @@ func main() {
 			fmt.Printf("%v\n", err)
 			os.Exit(1)
 		}
-		fmt.Printf("%v", issue)
+		fmt.Printf("%+v", issue)
 	}
 }
 
-func define(name string) (defined bool) {
-	flag.VisitAll(func(f *flag.Flag) {
-		if f.Name == name {
-			defined = true
+func validateFlag() {
+	flags := []bool{createFlag, closeFlag, editFlag, printFlag}
+
+	trueCount := 0
+	for _, f := range flags {
+		if f {
+			trueCount++
 		}
-	})
-	return
+	}
+	if trueCount != 1 {
+		fmt.Print("Need to set operation flag only 1.")
+		os.Exit(1)
+	}
 }
