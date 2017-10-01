@@ -15,9 +15,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"golang.org/x/crypto/ssh/terminal"
 	"io"
 	"runtime"
+
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 var userAgent = fmt.Sprintf("MyGoClient (%s)", runtime.Version())
@@ -31,8 +32,8 @@ type Client struct {
 }
 
 // NewClient returns new Client
-func NewClient() *Client {
-	return &Client{URL: GitHubAPIURL + "ichigogumi/ichigogumi.github.io/", HTTPClient: http.DefaultClient}
+func NewClient(repo string) *Client {
+	return &Client{URL: GitHubAPIURL + repo, HTTPClient: http.DefaultClient}
 }
 
 // Query sets username and password.
@@ -53,8 +54,8 @@ func (c *Client) Query() {
 	fmt.Print("\n")
 }
 
-func (c *Client) newRequest(ctx context.Context, method, apiUrl string, body io.Reader) (*http.Request, error) {
-	url := c.URL + apiUrl
+func (c *Client) newRequest(ctx context.Context, method, apiURL string, body io.Reader) (*http.Request, error) {
+	url := c.URL + apiURL
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
 		return nil, err

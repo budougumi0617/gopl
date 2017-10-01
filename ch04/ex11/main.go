@@ -5,7 +5,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"os"
+	"os/exec"
 
 	"github.com/budougumi0617/gopl/ch04/ex11/github"
 )
@@ -14,6 +16,7 @@ var (
 	issueNo                                    int
 	title, body                                string
 	createFlag, closeFlag, editFlag, printFlag bool
+	editorFlag                                 bool
 )
 
 func main() {
@@ -25,6 +28,7 @@ func main() {
 	flag.StringVar(&title, "t", "", "issue title")
 	flag.StringVar(&body, "body", "", "issue body")
 	flag.StringVar(&body, "b", "", "issue body")
+	flag.BoolVar(&editorFlag, "vim", false, "wirte body by vim")
 	flag.BoolVar(&createFlag, "create", false, "create an issue")
 	flag.BoolVar(&createFlag, "cr", false, "create an issue")
 	flag.BoolVar(&closeFlag, "cl", false, "close an issue")
@@ -37,27 +41,31 @@ func main() {
 
 	validateFlag()
 
-	c := github.NewClient()
+	c := github.NewClient(flag.Arg(0))
 	c.Query()
 
 	var issue *github.Issue
 	var err error
 	switch {
 	case createFlag:
+		if editorFlag {
+			body = executeVim()
+		}
 		issue, err = c.CreateIssue(title, body)
 	case closeFlag:
 		if issueNo < 1 {
 			fmt.Print("Need to set issue number by \"-number\" or \"-n\"\n")
 			os.Exit(1)
 		}
-		// TODO Need to support editing body by an editor.
 		issue, err = c.CloseIssue(issueNo)
 	case editFlag:
 		if issueNo < 1 {
 			fmt.Print("Need to set issue number by \"-number\" or \"-n\"\n")
 			os.Exit(1)
 		}
-		// TODO Need to support editing body by an editor.
+		if editorFlag {
+			body = executeVim()
+		}
 		issue, err = c.EditIssue(title, body, issueNo)
 	case printFlag:
 		if issueNo < 1 {
@@ -86,4 +94,29 @@ func validateFlag() {
 		fmt.Print("Need to set operation flag only 1.")
 		os.Exit(1)
 	}
+}
+
+func executeVim() string {
+	f, err := ioutil.TempFile("", ".tmp")
+	if err != nil {
+		panic(fmt.Errorf("Cannot create tmp file: %v", err))
+	}
+
+	name := f.Name()
+	f.Close()
+
+	cmd := exec.Command("vim", name)
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	err = cmd.Run()
+	if err != nil {
+		panic(fmt.Errorf("Cannot execute vim: %v", err))
+	}
+
+	b, err := ioutil.ReadFile(name)
+	if err != nil {
+		panic(fmt.Errorf("Cannot read temp file: %v", err))
+	}
+	return string(b)
 }
