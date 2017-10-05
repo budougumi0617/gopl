@@ -8,6 +8,7 @@ import (
 	"io"
 	"net/http"
 	"context"
+	"log"
 )
 
 // User user information
@@ -24,13 +25,14 @@ type Users struct {
 }
 
 func (u *Users) GetUsers(c *Client) error {
-	req, _ := c.NewRequest(context.Background(), "GET", GitHubAPIURL+"users", nil)
+	req, _ := c.NewRequest(context.Background(), "GET", "https://api.github.com/users", nil)
 
 	resp, err := c.HTTPClient.Do(req)
 	if err != nil {
 		return err
 	}
 	defer resp.Body.Close()
+	log.Printf("Get users from %v\n", req)
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("Status is not ok: %v", resp.StatusCode)
 	}
@@ -38,6 +40,7 @@ func (u *Users) GetUsers(c *Client) error {
 	if err := DecodeBody(resp, &(u.Items)); err != nil {
 		return err
 	}
+	log.Printf("%+v\n", u.Items)
 	return nil
 }
 

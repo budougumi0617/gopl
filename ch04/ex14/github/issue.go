@@ -9,6 +9,7 @@ import (
 	"time"
 	"io"
 	"html/template"
+	"log"
 )
 
 // IssuesSearchResult search result
@@ -30,14 +31,15 @@ type Issue struct {
 	Body      string    // in Markdown format
 }
 
-func (i *Issues) GetIssues(c Client, url string) error {
-	req, _ := c.NewRequest(context.Background(), "GET", GitHubAPIURL+url+"/issues", nil)
+func (i *Issues) GetIssues(c *Client) error {
+	req, _ := c.NewRequest(context.Background(), "GET", c.URL + "/issues", nil)
 
 	resp, err := c.HTTPClient.Do(req)
 	if err != nil {
 		return err
 	}
 	defer resp.Body.Close()
+	log.Printf("Get issues from %v\n", c.URL)
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("Status is not ok: %v", resp.StatusCode)
 	}
@@ -45,6 +47,7 @@ func (i *Issues) GetIssues(c Client, url string) error {
 	if err := DecodeBody(resp, &(i.Items)); err != nil {
 		return err
 	}
+	log.Printf("%+v\n", i.Items)
 	return nil
 }
 

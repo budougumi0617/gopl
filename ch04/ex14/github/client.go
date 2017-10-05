@@ -1,6 +1,7 @@
 // Copyright 2017 budougumi0617 All Rights Reserved.
 
-// Package github is GitHub API.
+// Package github provides a Go API for the GitHub data.
+// See https://developer.github.com/v3/search/#search-issues.
 package github
 
 import (
@@ -12,6 +13,9 @@ import (
 	"io"
 	"runtime"
 )
+
+// GitHubAPIURL URL of API
+const GitHubAPIURL = "https://api.github.com/repos/"
 
 var userAgent = fmt.Sprintf("MyGoClient (%s)", runtime.Version())
 
@@ -28,8 +32,7 @@ func NewClient(repo string) *Client {
 
 // NewRequest returns new request.
 func (c *Client) NewRequest(ctx context.Context, method, apiURL string, body io.Reader) (*http.Request, error) {
-	url := c.URL + apiURL
-	req, err := http.NewRequest(method, url, body)
+	req, err := http.NewRequest(method, apiURL, body)
 	if err != nil {
 		return nil, err
 	}
