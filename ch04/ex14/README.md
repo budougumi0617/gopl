@@ -3,3 +3,5 @@ Create a web server that queries GitHub once and then allows navigation of the l
 ---
 # 練習問題 4.14
 GitHubへの一度の問い合わせで、バグレポート、マイルストーン、ユーザの一覧を閲覧可能にするウェブサービスを作成しなさい。
+
+
