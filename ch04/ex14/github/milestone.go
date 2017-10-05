@@ -7,6 +7,7 @@ import (
 	"html/template"
 	"io"
 	"net/http"
+	"context"
 )
 
 // Milestone is milestone for a repository.
@@ -22,8 +23,8 @@ type Milestones struct {
 	Items []*Milestone
 }
 
-func (m *Milestones) GetMilestones() err {
-	req, _ := c.newRequest(context.Background(), "GET", GitHubAPIURL+url+"/milestones", nil)
+func (m *Milestones) GetMilestones(c *Client, url string) error {
+	req, _ := c.NewRequest(context.Background(), "GET", GitHubAPIURL+url+"/milestones", nil)
 
 	resp, err := c.HTTPClient.Do(req)
 	if err != nil {
@@ -34,7 +35,7 @@ func (m *Milestones) GetMilestones() err {
 		return fmt.Errorf("Status is not ok: %v", resp.StatusCode)
 	}
 
-	if err := decodeBody(resp, &(m.Items)); err != nil {
+	if err := DecodeBody(resp, &(m.Items)); err != nil {
 		return err
 	}
 	return nil

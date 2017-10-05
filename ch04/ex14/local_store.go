@@ -10,6 +10,6 @@ type LocalStore struct {
 	Milestones *github.Milestones
 }
 
-func (ls *LocalStore) Load(url string) err {
-
+func (ls *LocalStore) Load(url string) error {
+	return nil
 }

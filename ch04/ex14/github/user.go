@@ -7,6 +7,7 @@ import (
 	"html/template"
 	"io"
 	"net/http"
+	"context"
 )
 
 // User user information
@@ -22,8 +23,8 @@ type Users struct {
 	Items []*User
 }
 
-func (u *Users) GetUsers() err {
-	req, _ := c.newRequest(context.Background(), "GET", GitHubAPIURL+"users", nil)
+func (u *Users) GetUsers(c *Client) error {
+	req, _ := c.NewRequest(context.Background(), "GET", GitHubAPIURL+"users", nil)
 
 	resp, err := c.HTTPClient.Do(req)
 	if err != nil {
@@ -34,7 +35,7 @@ func (u *Users) GetUsers() err {
 		return fmt.Errorf("Status is not ok: %v", resp.StatusCode)
 	}
 
-	if err := decodeBody(resp, &(i.Items)); err != nil {
+	if err := DecodeBody(resp, &(u.Items)); err != nil {
 		return err
 	}
 	return nil

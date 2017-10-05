@@ -4,11 +4,11 @@ package github
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"net/http"
 	"time"
 	"io"
+	"html/template"
 )
 
 // IssuesSearchResult search result
@@ -30,8 +30,8 @@ type Issue struct {
 	Body      string    // in Markdown format
 }
 
-func (i *Issues) GetIssues(url string) err {
-	req, _ := c.newRequest(context.Background(), "GET", GitHubAPIURL+url+"/issues", nil)
+func (i *Issues) GetIssues(c Client, url string) error {
+	req, _ := c.NewRequest(context.Background(), "GET", GitHubAPIURL+url+"/issues", nil)
 
 	resp, err := c.HTTPClient.Do(req)
 	if err != nil {
@@ -42,7 +42,7 @@ func (i *Issues) GetIssues(url string) err {
 		return fmt.Errorf("Status is not ok: %v", resp.StatusCode)
 	}
 
-	if err := decodeBody(resp, &(i.Items)); err != nil {
+	if err := DecodeBody(resp, &(i.Items)); err != nil {
 		return err
 	}
 	return nil
