@@ -5,27 +5,27 @@ package main
 import "github.com/budougumi0617/gopl/ch04/ex14/github"
 
 type LocalStore struct {
-	Users      *github.Users
-	Issues     *github.Issues
-	Milestones *github.Milestones
+	github.Users
+	github.Issues
+	github.Milestones
 }
 
 // NewLocalStore returns new instance.
 func NewLocalStore() *LocalStore {
-	return &LocalStore{&github.Users{}, &github.Issues{}, &github.Milestones{}}
+	return &LocalStore{}
 }
 
 // Load get repository data, and GitHub users.
 func (ls *LocalStore) Load(url string) error {
 	c := github.NewClient(url)
 
-	if err := ls.Users.GetUsers(c); err != nil {
+	if err := ls.GetUsers(c); err != nil {
 		return err
 	}
-	if err := ls.Issues.GetIssues(c); err != nil {
+	if err := ls.GetIssues(c); err != nil {
 		return err
 	}
-	if err := ls.Milestones.GetMilestones(c); err != nil {
+	if err := ls.GetMilestones(c); err != nil {
 		return err
 	}
 

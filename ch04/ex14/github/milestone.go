@@ -40,7 +40,6 @@ func (m *Milestones) GetMilestones(c *Client) error {
 	if err := DecodeBody(resp, &(m.Items)); err != nil {
 		return err
 	}
-	log.Printf("%+v\n", m.Items)
 	return nil
 }
 

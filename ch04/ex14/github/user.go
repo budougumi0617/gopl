@@ -40,7 +40,6 @@ func (u *Users) GetUsers(c *Client) error {
 	if err := DecodeBody(resp, &(u.Items)); err != nil {
 		return err
 	}
-	log.Printf("%+v\n", u.Items)
 	return nil
 }
 

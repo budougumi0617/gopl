@@ -47,7 +47,6 @@ func (i *Issues) GetIssues(c *Client) error {
 	if err := DecodeBody(resp, &(i.Items)); err != nil {
 		return err
 	}
-	log.Printf("%+v\n", i.Items)
 	return nil
 }
 
