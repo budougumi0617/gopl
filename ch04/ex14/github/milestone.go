@@ -20,10 +20,12 @@ type Milestone struct {
 	Description string
 }
 
+// Milestones manages milestone data for GitHub repository.
 type Milestones struct {
 	Items []*Milestone
 }
 
+// GetMilestones gets issues from web.
 func (m *Milestones) GetMilestones(c *Client) error {
 	req, _ := c.NewRequest(context.Background(), "GET", c.URL+"/milestones", nil)
 
@@ -43,6 +45,7 @@ func (m *Milestones) GetMilestones(c *Client) error {
 	return nil
 }
 
+// RenderMilestones writes HTML table.
 func (m *Milestones) RenderMilestones(w io.Writer) {
 	milestoneList := template.Must(template.New("milestoneList").Parse(`
 	<h1>Milestones</h1>

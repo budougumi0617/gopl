@@ -12,15 +12,9 @@ import (
 	"time"
 )
 
-// IssuesSearchResult search result
+// Issue issue information
 // https://developer.github.com/v3/issues/#list-issues-for-a-repository
 // https://api.github.com/repos/golang/go/issues
-type Issues struct {
-	TotalCount int `json:"total_count"`
-	Items      []*Issue
-}
-
-// Issue issue information
 type Issue struct {
 	Number    int
 	HTMLURL   string `json:"html_url"`
@@ -31,6 +25,13 @@ type Issue struct {
 	Body      string    // in Markdown format
 }
 
+// Issues manages milestone data for GitHub repository.
+type Issues struct {
+	TotalCount int `json:"total_count"`
+	Items      []*Issue
+}
+
+// GetIssues gets issues from web.
 func (i *Issues) GetIssues(c *Client) error {
 	req, _ := c.NewRequest(context.Background(), "GET", c.URL+"/issues", nil)
 
@@ -50,6 +51,7 @@ func (i *Issues) GetIssues(c *Client) error {
 	return nil
 }
 
+// RenderIssues writes HTML table.
 func (i *Issues) RenderIssues(w io.Writer) {
 	issueList := template.Must(template.New("issueList").Parse(`
 	<h1>GitHub Issues</h1>

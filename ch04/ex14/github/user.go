@@ -19,11 +19,13 @@ type User struct {
 	HTMLURL string `json:"html_url"`
 }
 
+// Users manages GitHub user data.
 type Users struct {
 	Link  string
 	Items []*User
 }
 
+// GetUsers gets issues from web.
 func (u *Users) GetUsers(c *Client) error {
 	req, _ := c.NewRequest(context.Background(), "GET", "https://api.github.com/users", nil)
 
@@ -43,6 +45,7 @@ func (u *Users) GetUsers(c *Client) error {
 	return nil
 }
 
+// RenderUsers writes HTML table.
 func (u *Users) RenderUsers(w io.Writer) {
 	userList := template.Must(template.New("userList").Parse(`
 	<h1>GitHub Users</h1>

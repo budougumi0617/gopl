@@ -19,7 +19,7 @@ func (h *GitHubHandler) RepoHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	url := "golang/go"
+	url := "golang/go" // Default URL
 
 	if len(os.Args) != 0 {
 		url = os.Args[1]
@@ -27,7 +27,7 @@ func main() {
 
 	handler := &GitHubHandler{NewLocalStore()}
 	handler.store.Load(url)
+	log.Println("Access localhost:8080/" + url)
 	http.HandleFunc("/"+url, handler.RepoHandler)
 	http.ListenAndServe(":8080", nil)
-	log.Println("test!!")
 }
