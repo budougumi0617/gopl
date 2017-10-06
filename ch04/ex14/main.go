@@ -21,7 +21,7 @@ func (h *GitHubHandler) RepoHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	url := "golang/go" // Default URL
 
-	if len(os.Args) != 0 {
+	if len(os.Args) > 1 {
 		url = os.Args[1]
 	}
 
