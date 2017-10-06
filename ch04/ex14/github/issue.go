@@ -5,11 +5,11 @@ package github
 import (
 	"context"
 	"fmt"
+	"html/template"
+	"io"
+	"log"
 	"net/http"
 	"time"
-	"io"
-	"html/template"
-	"log"
 )
 
 // IssuesSearchResult search result
@@ -32,7 +32,7 @@ type Issue struct {
 }
 
 func (i *Issues) GetIssues(c *Client) error {
-	req, _ := c.NewRequest(context.Background(), "GET", c.URL + "/issues", nil)
+	req, _ := c.NewRequest(context.Background(), "GET", c.URL+"/issues", nil)
 
 	resp, err := c.HTTPClient.Do(req)
 	if err != nil {
@@ -54,10 +54,10 @@ func (i *Issues) RenderIssues(w io.Writer) {
 	issueList := template.Must(template.New("issueList").Parse(`
 	<h1>GitHub Issues</h1>
 	<table>
-	  <th>Name</th><th>URL</>
+	  <tr><th>No.</th><th>Title</th><th>Status</th></tr>
 	  {{range .Items}}
 	  <tr>
-	    <td>{{.Number}}</td><td>{{.Title}}</td><td>{{.Title}}</td><td>{{.State}}</td>
+	    <td>{{.Number}}</td><td>{{.Title}}</td><td>{{.State}}</td>
 	  </tr>
 	  {{end}}
 	</table>

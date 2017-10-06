@@ -3,12 +3,12 @@
 package github
 
 import (
+	"context"
 	"fmt"
 	"html/template"
 	"io"
-	"net/http"
-	"context"
 	"log"
+	"net/http"
 )
 
 // User user information
@@ -47,7 +47,7 @@ func (u *Users) RenderUsers(w io.Writer) {
 	userList := template.Must(template.New("userList").Parse(`
 	<h1>GitHub Users</h1>
 	<table>
-	  <th>Name</th><th>URL</>
+	  <tr><th>Name</th><th>URL</th></tr>
 	  {{range .Items}}
 	  <tr>
 	    <td>{{.Login}}</td><td>{{.HTMLURL}}</td>

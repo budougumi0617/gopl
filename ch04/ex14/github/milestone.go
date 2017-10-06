@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"html/template"
 	"io"
-	"net/http"
 	"log"
+	"net/http"
 )
 
 // Milestone is milestone for a repository.
@@ -47,7 +47,7 @@ func (m *Milestones) RenderMilestones(w io.Writer) {
 	milestoneList := template.Must(template.New("milestoneList").Parse(`
 	<h1>Milestones</h1>
 	<table>
-	  <th>Title</th><th>Description</>
+	  <tr><th>Title</th><th>Description</th></tr>
 	  {{range .Items}}
 	  <tr>
 	    <td>{{.Title}}</td><td>{{.Description}}</td>
