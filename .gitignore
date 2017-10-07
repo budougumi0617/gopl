@@ -31,3 +31,7 @@ _testmain.go
 
 # For Gogland
 .idea/
+
+ch01/ex10/result
+ch01/ex10/result1
+coverage.txt

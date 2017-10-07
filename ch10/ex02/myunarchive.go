@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/budougumi0617/gotraining/ch10/ex02/unarchive"
-	_ "github.com/budougumi0617/gotraining/ch10/ex02/unarchive/tar"
-	_ "github.com/budougumi0617/gotraining/ch10/ex02/unarchive/zip"
+	"github.com/budougumi0617/gopl/ch10/ex02/unarchive"
+	_ "github.com/budougumi0617/gopl/ch10/ex02/unarchive/tar"
+	_ "github.com/budougumi0617/gopl/ch10/ex02/unarchive/zip"
 )
 
 func main() {

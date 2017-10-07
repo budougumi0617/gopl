@@ -13,7 +13,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/budougumi0617/gotraining/ch10/ex02/unarchive"
+	"github.com/budougumi0617/gopl/ch10/ex02/unarchive"
 )
 
 func unpacking(filename string) (err error) {

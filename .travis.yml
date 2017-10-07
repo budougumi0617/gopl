@@ -2,9 +2,11 @@ language: go
 go:
     - tip
 before_install:
-    - go get github.com/pierrre/gotestcover
+  - go get -t -v ./...
+script:
+  - ./go.test.sh
 after_success:
-- bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash)
 env:
     global:
         secure: SNjIzHEglZP9NDe5FN1/Y1SKXwfR/3WFs0F0MQ8m2KR2UBpCnZlMzOPnI5jpRgPkQSAZzGstaXpePiwgQKm4Dgdsw9YprwCcRAUu0HAnarOl0B3KDUCzB0hVjQRpqq+KHgxL1kdicfRve/tz000xUm+0eBkpuFHVg2wGFg/KvwS1noVz9SIx68sqClHWubg5A4KePTFsLH6Je/afHWop1En6KpoRpwWN6sdEq4a557kQHiL4xVMHFKuCl4yyJqfg5t3LEGmvp9mt4+kHxJjC69DOPXkchQ6XMz2JVJ3ieZrH6Wk/czhuIwvlHIYaRFBiwxjHhVPJcccZ+u0lPR5/ruSagfKBt1EKL2WiB5RL22Xex+c+0fAM3BSCcuIIz4brQSIrPkqlVWgBWPqiySlEITOl7V1Dvl1BVea5vJh/Ka9r5AtyAeOejP3AKEr3FJw8XZBPgn7RyyiooJNBm5uEaH251zjo1zukTRudF+oByE13kBvylx5ik7PmBl6g0/DcOPl2wO1laHUYaXojfaCZlB9xnLtMgDZpCj9ni9ZwUUqire9wBZnP6azzMA2u+8+VJoiSkpcITsfWIF7OE3zCv64GyeicoeQiYyLl/7LwIM3cBReTsOKs856nRuY7tbCn9q5AU/yH7rOD+2KiExP6aFoflvnggr3qjYeeYBknfBA=

@@ -13,7 +13,7 @@ func TestSearchIssues(t *testing.T) {
 		terms  []string
 		result bool
 	}{
-		{[]string{"budougumi0617/gotraining"}, true},
+		{[]string{"budougumi0617/gopl"}, true},
 		{[]string{"budougumi0617/non_url"}, false},
 	}
 	for _, test := range tests {

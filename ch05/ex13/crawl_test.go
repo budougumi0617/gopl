@@ -8,7 +8,7 @@ import (
 )
 
 func TestMain(t *testing.T) {
-	os.Args = []string{"crawl", "https://raw.githubusercontent.com/budougumi0617/GoTraining/master/LICENSE"}
+	os.Args = []string{"crawl", "https://raw.githubusercontent.com/budougumi0617/gopl/master/LICENSE"}
 	stdout = new(bytes.Buffer) // captured output
 	main()
 

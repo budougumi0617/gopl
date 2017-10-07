@@ -23,7 +23,7 @@ func TestFetch(t *testing.T) {
 		expected string
 	}{
 		{[]string{"fetch", "https://github.com/budougumi0617"}, "resp.status 200 OK\n"},
-		{[]string{"fetch", "https://github.com/budougumi0617/GoTraining/404status"}, "resp.status 404 Not Found\n"},
+		{[]string{"fetch", "https://github.com/budougumi0617/gopl/404status"}, "resp.status 404 Not Found\n"},
 		//{[]string{"fetch", "https://"}, "\n"},
 	}
 

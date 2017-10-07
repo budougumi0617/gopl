@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/budougumi0617/GoTraining/ch02/ex01"
+	"github.com/budougumi0617/gopl/ch02/ex01"
 )
 
 var stdout io.Writer = os.Stdout // modified during testing
