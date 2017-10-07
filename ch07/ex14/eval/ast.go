@@ -9,6 +9,8 @@ type Expr interface {
 	Eval(env Env) float64
 	// Check reports errors in this Expr and adds its Vars to the set.
 	Check(vars map[Var]bool) error
+	// String is added for homework
+	String() string
 }
 
 //!+ast
@@ -33,7 +35,7 @@ type binary struct {
 
 // A call represents a function call expression, e.g., sin(x).
 type call struct {
-	fn   string // one of "pow", "sin", "sqrt"
+	fn   string // one of "pow", "sin", "sqrt", "min"
 	args []Expr
 }
 
