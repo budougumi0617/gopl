@@ -25,7 +25,7 @@ func TestString(t *testing.T) {
 		// additional tests that don't appear in the book
 		{"-1 + -x", Env{"x": 1}, "-2"},
 		{"-1 - x", Env{"x": 1}, "-2"},
-		{"min[10, 2, x, y, -4]", Env{"x": 1, "y": -10}, "-10"},
+		{"min[pow(1,1), min[10, 2, x, y, -4]]", Env{"x": 1, "y": -10}, "-10"},
 	}
 	var prevExpr string
 	for _, test := range tests {
