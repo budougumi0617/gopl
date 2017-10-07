@@ -46,6 +46,16 @@ func write(buf *bytes.Buffer, e Expr) {
 		}
 		buf.WriteByte(')')
 
+	case extract:
+		fmt.Fprintf(buf, "%s[", e.fn)
+		for i, arg := range e.args {
+			if i > 0 {
+				buf.WriteString(", ")
+			}
+			write(buf, arg)
+		}
+		buf.WriteByte(']')
+
 	default:
 		panic(fmt.Sprintf("unknown Expr: %T", e))
 	}
