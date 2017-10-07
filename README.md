@@ -1,6 +1,6 @@
 # gopl
 [![Build Status](https://travis-ci.org/budougumi0617/gopl.svg)](https://travis-ci.org/budougumi0617/gopl)
-[![Coverage Status](https://coveralls.io/repos/github/budougumi0617/gopl/badge.svg?branch=master)](https://coveralls.io/github/budougumi0617/gopl?branch=master)
+[![codecov](https://codecov.io/gh/budougumi0617/gopl/branch/master/graph/badge.svg)](https://codecov.io/gh/budougumi0617/gopl)
 [![Code Climate](https://codeclimate.com/github/budougumi0617/gopl/badges/gpa.svg)](https://codeclimate.com/github/budougumi0617/gopl)
 [![Go Report Card](https://goreportcard.com/badge/github.com/budougumi0617/gopl)](https://goreportcard.com/report/github.com/budougumi0617/gopl)
 
