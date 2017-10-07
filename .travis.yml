@@ -2,6 +2,7 @@ language: go
 go:
     - tip
 install:
+  - go get -t ./...
   - go get github.com/haya14busa/goverage
 
 script:
