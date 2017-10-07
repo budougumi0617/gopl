@@ -81,4 +81,18 @@ func (c call) Eval(env Env) float64 {
 	panic(fmt.Sprintf("unsupported function call: %s", c.fn))
 }
 
+func (e extract) Eval(env Env) float64 {
+	switch e.fn {
+	case "min":
+		min := e.args[0].Eval(env)
+		for i := 1; i < len(e.args); i++ {
+			if val := e.args[i].Eval(env); val < min {
+				min = val
+			}
+		}
+		return min
+	}
+	panic(fmt.Sprintf("unsupported function extract: %s", e.fn))
+}
+
 //!-Eval2

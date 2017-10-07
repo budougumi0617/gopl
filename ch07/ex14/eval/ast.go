@@ -1,5 +1,6 @@
 // Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
 // License: https://creativecommons.org/licenses/by-nc-sa/4.0/
+// Copyright 2017 budougumi0617 All Rights Reserved.
 
 package eval
 
@@ -35,7 +36,13 @@ type binary struct {
 
 // A call represents a function call expression, e.g., sin(x).
 type call struct {
-	fn   string // one of "pow", "sin", "sqrt", "min"
+	fn   string // one of "pow", "sin", "sqrt"
+	args []Expr
+}
+
+// A extract represents a function call expression with multiple parameters, e.g., min(x, y, z, ...).
+type extract struct {
+	fn   string // one of "min"
 	args []Expr
 }
 

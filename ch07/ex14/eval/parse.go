@@ -116,12 +116,19 @@ func parsePrimary(lex *lexer) Expr {
 	case scanner.Ident:
 		id := lex.text()
 		lex.next() // consume Ident
-		if lex.token != '(' {
+		if lex.token != '(' && lex.token != '[' {
 			return Var(id)
 		}
-		lex.next() // consume '('
+
+		var closedToken rune
+		if lex.token == '(' {
+			closedToken = ')'
+		} else {
+			closedToken = ']'
+		}
+		lex.next() // consume '(' or '['
 		var args []Expr
-		if lex.token != ')' {
+		if lex.token != closedToken {
 			for {
 				args = append(args, parseExpr(lex))
 				if lex.token != ',' {
@@ -129,14 +136,17 @@ func parsePrimary(lex *lexer) Expr {
 				}
 				lex.next() // consume ','
 			}
-			if lex.token != ')' {
-				msg := fmt.Sprintf("got %q, want ')'", lex.token)
+			if lex.token != closedToken {
+				msg := fmt.Sprintf("got %q, want %v", lex.token, closedToken)
 				panic(lexPanic(msg))
 			}
 		}
 		lex.next() // consume ')'
-		return call{id, args}
-
+		if closedToken == ')' {
+			return call{id, args}
+		} else {
+			return extract{id, args}
+		}
 	case scanner.Int, scanner.Float:
 		f, err := strconv.ParseFloat(lex.text(), 64)
 		if err != nil {

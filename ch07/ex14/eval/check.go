@@ -56,4 +56,22 @@ func (c call) Check(vars map[Var]bool) error {
 
 var numParams = map[string]int{"pow": 2, "sin": 1, "sqrt": 1}
 
+func (e extract) Check(vars map[Var]bool) error {
+	ok := params[e.fn]
+	if !ok {
+		return fmt.Errorf("unknown function %q", e.fn)
+	}
+	if len(e.args) == 0 {
+		return fmt.Errorf("not have parameter")
+	}
+	for _, arg := range e.args {
+		if err := arg.Check(vars); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+var params = map[string]bool{"min": true}
+
 //!-Check

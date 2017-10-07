@@ -37,3 +37,16 @@ func (e call) String() string {
 	buf.WriteByte(')')
 	return buf.String()
 }
+
+func (e extract) String() string {
+	buf := &bytes.Buffer{}
+	fmt.Fprintf(buf, "%s[", e.fn)
+	for i, arg := range e.args {
+		if i > 0 {
+			buf.WriteString(", ")
+		}
+		write(buf, arg)
+	}
+	buf.WriteByte(']')
+	return buf.String()
+}
