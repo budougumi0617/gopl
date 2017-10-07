@@ -30,3 +30,25 @@ func Example_main() {
 	// Output:
 	// Exercise is in test file.
 }
+
+func TestPopCountByLoop(t *testing.T) {
+	var tests = []struct {
+		args     uint64
+		expected int
+	}{
+		{0, 0},
+		{1, 1},
+		{10, 2},
+	}
+
+	for _, test := range tests {
+		mask := popCountShiftMask(test.args)
+		value := popCountShiftValue(test.args)
+		right := popCountClearRightmost(test.args)
+		table := popCountTable(test.args)
+		got := (mask + value + right + table) / 4
+		if got != test.expected {
+			t.Errorf("Result = %v, Expected %v", got, test.expected)
+		}
+	}
+}
