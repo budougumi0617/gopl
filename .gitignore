@@ -32,6 +32,12 @@ _testmain.go
 # For Gogland
 .idea/
 
+# tmep file
 ch01/ex10/result
 ch01/ex10/result1
 coverage.txt
+ch01/ex10/result2
+ch01/ex10/result3
+ch04/ex12/data/
+ch05/ex18/404status
+ch05/ex18/budougumi0617
