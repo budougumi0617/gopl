@@ -1,5 +1,6 @@
 // Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
 // License: https://creativecommons.org/licenses/by-nc-sa/4.0/
+// Copyright 2017 budougumi0617 All Rights Reserved.
 
 package eval
 
@@ -62,7 +63,7 @@ func (e extract) Check(vars map[Var]bool) error {
 		return fmt.Errorf("unknown function %q", e.fn)
 	}
 	if len(e.args) == 0 {
-		return fmt.Errorf("not have parameter")
+		return fmt.Errorf("%q has no parameter", e.fn)
 	}
 	for _, arg := range e.args {
 		if err := arg.Check(vars); err != nil {

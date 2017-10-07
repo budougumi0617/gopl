@@ -1,5 +1,6 @@
 // Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
 // License: https://creativecommons.org/licenses/by-nc-sa/4.0/
+// Copyright 2017 budougumi0617 All Rights Reserved.
 
 package eval
 
@@ -45,6 +46,16 @@ func write(buf *bytes.Buffer, e Expr) {
 			write(buf, arg)
 		}
 		buf.WriteByte(')')
+
+	case extract:
+		fmt.Fprintf(buf, "%s[", e.fn)
+		for i, arg := range e.args {
+			if i > 0 {
+				buf.WriteString(", ")
+			}
+			write(buf, arg)
+		}
+		buf.WriteByte(']')
 
 	default:
 		panic(fmt.Sprintf("unknown Expr: %T", e))

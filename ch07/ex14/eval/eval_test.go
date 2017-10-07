@@ -1,5 +1,6 @@
 // Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
 // License: https://creativecommons.org/licenses/by-nc-sa/4.0/
+// Copyright 2017 budougumi0617 All Rights Reserved.
 
 package eval
 
@@ -84,6 +85,8 @@ func TestErrors(t *testing.T) {
 		{`"hello"`, "unexpected '\"'"},
 		{"log(10)", `unknown function "log"`},
 		{"sqrt(1, 2)", "call to sqrt has 2 args, want 1"},
+		{"min[]", `"min" has no parameter`},
+		{"log[]", `unknown function "log"`},
 	} {
 		expr, err := Parse(test.expr)
 		if err == nil {

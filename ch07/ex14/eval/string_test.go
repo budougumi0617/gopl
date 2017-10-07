@@ -1,5 +1,6 @@
 // Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
 // License: https://creativecommons.org/licenses/by-nc-sa/4.0/
+// Copyright 2017 budougumi0617 All Rights Reserved.
 
 package eval
 
@@ -24,6 +25,7 @@ func TestString(t *testing.T) {
 		// additional tests that don't appear in the book
 		{"-1 + -x", Env{"x": 1}, "-2"},
 		{"-1 - x", Env{"x": 1}, "-2"},
+		{"min[10, 2, x, y, -4]", Env{"x": 1, "y": -10}, "-10"},
 	}
 	var prevExpr string
 	for _, test := range tests {
