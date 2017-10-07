@@ -17,6 +17,7 @@ func TestString(t *testing.T) {
 		result string
 	}{
 		{"sqrt(A / pi)", Env{"A": 87616, "pi": math.Pi}, "167"},
+		{"sin(x)", Env{"x": 0.5}, "0.479426"},
 		{"pow(x, 3) + pow(y, 3)", Env{"x": 12, "y": 1}, "1729"},
 		{"pow(x, 3) + pow(y, 3)", Env{"x": 9, "y": 10}, "1729"},
 		{"5 / 9 * (F - 32)", Env{"F": -40}, "-40"},
@@ -24,7 +25,7 @@ func TestString(t *testing.T) {
 		{"5 / 9 * (F - 32)", Env{"F": 212}, "100"},
 		// additional tests that don't appear in the book
 		{"-1 + -x", Env{"x": 1}, "-2"},
-		{"-1 - x", Env{"x": 1}, "-2"},
+		{"-1 - +x", Env{"x": 1}, "-2"},
 		{"min[pow(1,1), min[10, 2, x, y, -4]]", Env{"x": 1, "y": -10}, "-10"},
 	}
 	var prevExpr string
