@@ -6,6 +6,10 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+
+	"strings"
+
+	"github.com/budougumi0617/gopl/ch07/ex16/eval"
 )
 
 func main() {
@@ -25,8 +29,13 @@ func (m *MyForm) RenderForm(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Request %s\n", r.Method)
 		r.ParseForm()
 		f := r.Form["formula"]
+		expr, err := eval.Parse(strings.Join(f, ""))
+		if err != nil {
+			log.Fatal(err) // parse error
+		}
+		got := fmt.Sprintf("%.6g", expr.Eval(eval.Env{})) // ignore variables.
 		log.Printf("Request formula : %s\n", f)
-		m.Answer = "10"
+		m.Answer = got
 	}
 	form := template.Must(template.New("formTmpl").Parse(`
 	<html>
