@@ -11,10 +11,21 @@ package sexpr
 import (
 	"bytes"
 	"fmt"
+	"io"
 	"reflect"
 	"strconv"
 	"text/scanner"
 )
+
+// A Decoder reads and decodes S-expression values from an input stream.
+type Decoder struct {
+	reader io.Reader
+}
+
+// NewDecoder returns a new decoder that reads from r.
+func NewDecoder(r io.Reader) *Decoder {
+	return &Decoder{r}
+}
 
 //!+Unmarshal
 // Unmarshal parses S-expression data and populates the variable
