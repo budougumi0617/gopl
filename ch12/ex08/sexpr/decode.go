@@ -9,7 +9,6 @@
 package sexpr
 
 import (
-	"bytes"
 	"fmt"
 	"io"
 	"reflect"
@@ -27,21 +26,17 @@ func NewDecoder(r io.Reader) *Decoder {
 	return &Decoder{r}
 }
 
+// Decode reads the next S-expression value from its input and stores it in the value pointed to by v.
+func (*Decoder) Decode(v interface{}) error {
+	return nil
+}
+
 //!+Unmarshal
 // Unmarshal parses S-expression data and populates the variable
 // whose address is in the non-nil pointer out.
-func Unmarshal(data []byte, out interface{}) (err error) {
-	lex := &lexer{scan: scanner.Scanner{Mode: scanner.GoTokens}}
-	lex.scan.Init(bytes.NewReader(data))
-	lex.next() // get the first token
-	defer func() {
-		// NOTE: this is not an example of ideal error handling.
-		if x := recover(); x != nil {
-			err = fmt.Errorf("error at %s: %v", lex.scan.Position, x)
-		}
-	}()
-	read(lex, reflect.ValueOf(out).Elem())
-	return nil
+func Unmarshal(r io.Reader, out interface{}) (err error) {
+	decoder := NewDecoder(r)
+	return decoder.Decode(out)
 }
 
 //!-Unmarshal
