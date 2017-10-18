@@ -27,7 +27,17 @@ func NewDecoder(r io.Reader) *Decoder {
 }
 
 // Decode reads the next S-expression value from its input and stores it in the value pointed to by v.
-func (*Decoder) Decode(v interface{}) error {
+func (d *Decoder) Decode(v interface{}) (err error) {
+	lex := &lexer{scan: scanner.Scanner{Mode: scanner.GoTokens}}
+	lex.scan.Init(d.reader)
+	lex.next() // get the first token
+	defer func() {
+		// NOTE: this is not an example of ideal error handling.
+		if x := recover(); x != nil {
+			err = fmt.Errorf("error at %s: %v", lex.scan.Position, x)
+		}
+	}()
+	read(lex, reflect.ValueOf(v).Elem())
 	return nil
 }
 

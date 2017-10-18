@@ -1,9 +1,11 @@
 // Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
 // License: https://creativecommons.org/licenses/by-nc-sa/4.0/
+// Copyright 2017 budougumi0617 All Rights Reserved.
 
 package sexpr
 
 import (
+	"bytes"
 	"reflect"
 	"testing"
 )
@@ -55,7 +57,7 @@ func Test(t *testing.T) {
 
 	// Decode it
 	var movie Movie
-	if err := Unmarshal(data, &movie); err != nil {
+	if err := Unmarshal(bytes.NewReader(data), &movie); err != nil {
 		t.Fatalf("Unmarshal failed: %v", err)
 	}
 	t.Logf("Unmarshal() = %+v\n", movie)
