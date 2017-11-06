@@ -11,6 +11,7 @@ import (
 	"strings"
 )
 
+// Pack build struct by URL parameters.
 func Pack(ptr interface{}) (url.URL, error) {
 	v := reflect.ValueOf(ptr).Elem()
 	if v.Type().Kind() != reflect.Struct {
@@ -42,8 +43,8 @@ func Unpack(req *http.Request, ptr interface{}) error {
 	for i := 0; i < v.NumField(); i++ {
 		fieldInfo := v.Type().Field(i) // a reflect.StructField
 		tag := fieldInfo.Tag           // a reflect.StructTag
-		name := tag.Get("http")
-		if name == "" {
+		name := tag.Get("http")        // Get value by "http" key
+		if name == "" {                // Has not "http" key
 			name = strings.ToLower(fieldInfo.Name)
 		}
 		fields[name] = v.Field(i)
@@ -95,4 +96,13 @@ func populate(v reflect.Value, value string) error {
 		return fmt.Errorf("unsupported kind %s", v.Type())
 	}
 	return nil
+}
+
+func validate(f reflect.StructField) bool {
+	tag := fieldInfo.Tag          // a reflect.StructTag
+	name := tag.Get("validation") // Get value by validation rule name.
+	if name == "" {               // No rule.
+		return true
+	}
+	// TODO not implement
 }
