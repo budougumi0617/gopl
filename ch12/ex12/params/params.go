@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"reflect"
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -98,11 +99,13 @@ func populate(v reflect.Value, value string) error {
 	return nil
 }
 
-func validate(f reflect.StructField) bool {
-	tag := fieldInfo.Tag          // a reflect.StructTag
-	name := tag.Get("validation") // Get value by validation rule name.
-	if name == "" {               // No rule.
-		return true
+var emailPattern = regexp.MustCompile(`^[a-zA-Z0-9\-.]+@[a-zA-Z0-9\-.]+$`)
+
+func validate(elem, rule string) bool {
+	switch rule {
+	case "email":
+		return emailPattern.MatchString(elem)
+	default:
+		return false
 	}
-	// TODO not implement
 }
