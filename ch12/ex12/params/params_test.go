@@ -8,7 +8,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/adonovan/gopl.io/ch12/params"
+	"github.com/budougumi0617/gopl/ch12/ex11/params"
 )
 
 func TestPack(t *testing.T) {
