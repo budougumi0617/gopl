@@ -112,7 +112,7 @@ var emailPattern = regexp.MustCompile(`^[a-zA-Z0-9\-.]+@[a-zA-Z0-9\-.]+$`)
 func validate(rule, value string) bool {
 	switch rule {
 	case "email":
-		return !emailPattern.MatchString(value)
+		return emailPattern.MatchString(value)
 	default:
 		return false
 	}

@@ -7,8 +7,6 @@ import (
 	"net/url"
 	"reflect"
 	"testing"
-
-	"github.com/budougumi0617/gopl/ch12/ex11/params"
 )
 
 func TestPack(t *testing.T) {
@@ -53,7 +51,7 @@ func TestUnpackWithRule(t *testing.T) {
 			continue
 		}
 
-		if err := params.Unpack(req, &data); err != nil {
+		if err := Unpack(req, &data); err != nil {
 			if test.err == true {
 				continue
 			}
