@@ -23,11 +23,12 @@ import (
 //
 func Test(t *testing.T) {
 	type Movie struct {
-		Title, Subtitle string
-		Year            int
-		Actor           map[string]string
-		Oscars          []string
-		Sequel          *string
+		Title    string `sexpr:"title"`
+		Subtitle string
+		Year     int `sexpr:"year"`
+		Actor    map[string]string
+		Oscars   []string
+		Sequel   *string
 	}
 	strangelove := Movie{
 		Title:    "Dr. Strangelove",
