@@ -52,6 +52,13 @@ func encode(buf *bytes.Buffer, v reflect.Value) error {
 	case reflect.Struct: // ((name value) ...)
 		buf.WriteByte('(')
 		for i := 0; i < v.NumField(); i++ {
+			fieldInfo := v.Type().Field(i)
+			tag := fieldInfo.Tag
+			name := tag.Get("sexpr")
+			if name == "" {
+				name = fieldInfo.Name
+			}
+
 			if i > 0 {
 				buf.WriteByte(' ')
 			}

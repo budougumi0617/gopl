@@ -25,7 +25,19 @@ func Unmarshal(data []byte, out interface{}) (err error) {
 			err = fmt.Errorf("error at %s: %v", lex.scan.Position, x)
 		}
 	}()
-	read(lex, reflect.ValueOf(out).Elem())
+
+	tags := make(map[string]string)
+	v := reflect.ValueOf(out).Elem()
+	for i := 0; i < v.NumField(); i++ {
+		fieldInfo := v.Type().Field(i)
+		tag := fieldInfo.Tag
+		name := tag.Get("sexpr")
+		if name == "" {
+			name = fieldInfo.Name
+		}
+		tags[name] = fieldInfo.Name
+	}
+	read(lex, reflect.ValueOf(out).Elem(), tags)
 	return nil
 }
 
@@ -65,7 +77,7 @@ func (lex *lexer) consume(want rune) {
 //   type and doesn't need clearing.
 // - that if v is a numeric variable, it is a signed integer.
 
-func read(lex *lexer, v reflect.Value) {
+func read(lex *lexer, v reflect.Value, tags map[string]string) {
 	switch lex.token {
 	case scanner.Ident:
 		// The only valid identifiers are "nil", "t", and struct field names.

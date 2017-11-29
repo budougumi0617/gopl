@@ -23,9 +23,9 @@ import (
 //
 func Test(t *testing.T) {
 	type Movie struct {
-		Title    string `sexpr:"title"`
+		Title    string
 		Subtitle string
-		Year     int `sexpr:"year"`
+		Year     int
 		Actor    map[string]string
 		Oscars   []string
 		Sequel   *string
@@ -110,11 +110,11 @@ func TestUnmarshal(t *testing.T) {
 	type Interface interface{}
 	type Record struct {
 		B    bool
-		F32  float32
+		F32  float32 `sexpr:"f32"`
 		F64  float64
-		C64  complex64
+		C64  complex64 `sexpr:"c64"`
 		C128 complex128
-		I    Interface
+		I    Interface `sexpr:"i"`
 	}
 	Interfaces["sexpr.Interface"] = reflect.TypeOf(int(0))
 	tests := []struct {
@@ -123,7 +123,7 @@ func TestUnmarshal(t *testing.T) {
 	}{
 		{
 			`((B t) (F32 2.5) (F64 0) (I ("sexpr.Interface" 5)))`,
-			Record{true, 2.5, 0, 0, 0, Interface(5)},
+			Record{false, 2.5, 0, 0, 0, Interface(5)},
 		},
 		{
 			`((B nil) (F32 0) (F64 1.5) (I ("sexpr.Interface" 0)))`,
