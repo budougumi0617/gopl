@@ -115,24 +115,24 @@ func read(lex *lexer, v reflect.Value, tags map[string]string) {
 		return
 	case '(':
 		lex.next()
-		readList(lex, v)
+		readList(lex, v, tags)
 		lex.next() // consume ')'
 		return
 	}
 	panic(fmt.Sprintf("unexpected token %q", lex.text()))
 }
 
-func readList(lex *lexer, v reflect.Value) {
+func readList(lex *lexer, v reflect.Value, tags map[string]string) {
 	switch v.Kind() {
 	case reflect.Array: // (item ...)
 		for i := 0; !endList(lex); i++ {
-			read(lex, v.Index(i))
+			read(lex, v.Index(i), tags)
 		}
 
 	case reflect.Slice: // (item ...)
 		for !endList(lex) {
 			item := reflect.New(v.Type().Elem()).Elem()
-			read(lex, item)
+			read(lex, item, tags)
 			v.Set(reflect.Append(v, item))
 		}
 
@@ -144,7 +144,7 @@ func readList(lex *lexer, v reflect.Value) {
 			}
 			name := lex.text()
 			lex.next()
-			read(lex, v.FieldByName(name))
+			read(lex, v.FieldByName(tags[name]), tags)
 			lex.consume(')')
 		}
 
@@ -153,9 +153,9 @@ func readList(lex *lexer, v reflect.Value) {
 		for !endList(lex) {
 			lex.consume('(')
 			key := reflect.New(v.Type().Key()).Elem()
-			read(lex, key)
+			read(lex, key, tags)
 			value := reflect.New(v.Type().Elem()).Elem()
-			read(lex, value)
+			read(lex, value, tags)
 			v.SetMapIndex(key, value)
 			lex.consume(')')
 		}
@@ -168,7 +168,7 @@ func readList(lex *lexer, v reflect.Value) {
 			panic(fmt.Sprintf("no concrete type registered for interface %s", name))
 		}
 		val := reflect.New(typ)
-		read(lex, reflect.Indirect(val))
+		read(lex, reflect.Indirect(val), tags)
 		v.Set(reflect.Indirect(val))
 
 	default:

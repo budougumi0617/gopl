@@ -110,9 +110,9 @@ func TestUnmarshal(t *testing.T) {
 	type Interface interface{}
 	type Record struct {
 		B    bool
-		F32  float32 `sexpr:"f32"`
+		F32  float32 `sexpr:"f_32"`
 		F64  float64
-		C64  complex64 `sexpr:"c64"`
+		C64  complex64 `sexpr:"c_64"`
 		C128 complex128
 		I    Interface `sexpr:"i"`
 	}
@@ -122,11 +122,11 @@ func TestUnmarshal(t *testing.T) {
 		want Record
 	}{
 		{
-			`((B t) (F32 2.5) (F64 0) (I ("sexpr.Interface" 5)))`,
-			Record{false, 2.5, 0, 0, 0, Interface(5)},
+			`((B t) (f_32 2.5) (F64 1.5) (i ("sexpr.Interface" 5)))`,
+			Record{true, 2.5, 1.5, 0, 0, Interface(5)},
 		},
 		{
-			`((B nil) (F32 0) (F64 1.5) (I ("sexpr.Interface" 0)))`,
+			`((B nil) (f_32 0) (F64 1.5) (i ("sexpr.Interface" 0)))`,
 			Record{false, 0, 1.5, 0, 0, Interface(0)},
 		},
 	}
