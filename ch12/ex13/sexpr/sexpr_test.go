@@ -23,9 +23,9 @@ import (
 //
 func Test(t *testing.T) {
 	type Movie struct {
-		Title    string
+		Title    string `sexpr:"title`
 		Subtitle string
-		Year     int
+		Year     int `sexpr:"year"`
 		Actor    map[string]string
 		Oscars   []string
 		Sequel   *string
