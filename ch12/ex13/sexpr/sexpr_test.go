@@ -23,7 +23,7 @@ import (
 //
 func Test(t *testing.T) {
 	type Movie struct {
-		Title    string `sexpr:"title`
+		Title    string `sexpr:"title"`
 		Subtitle string
 		Year     int `sexpr:"year"`
 		Actor    map[string]string
@@ -76,10 +76,10 @@ func TestMarshal(t *testing.T) {
 	type Record struct {
 		B    bool
 		F32  float32
-		F64  float64
+		F64  float64 `sexpr:"f64"`
 		C64  complex64
 		C128 complex128
-		I    Interface
+		I    Interface `sexpr:"i"`
 	}
 	tests := []struct {
 		r    Record
@@ -87,11 +87,11 @@ func TestMarshal(t *testing.T) {
 	}{
 		{
 			Record{true, 2.5, 0, 1 + 2i, 2 + 3i, Interface(5)},
-			`((B t) (F32 2.5) (F64 0) (C64 #C(1 2)) (C128 #C(2 3)) (I ("sexpr.Interface" 5)))`,
+			`((B t) (F32 2.5) (f64 0) (C64 #C(1 2)) (C128 #C(2 3)) (i ("github.com/budougumi0617/gopl/ch12/ex13/sexpr.Interface" 5)))`,
 		},
 		{
 			Record{false, 0, 1.5, 0, 1i, Interface(0)},
-			`((B nil) (F32 0) (F64 1.5) (C64 #C(0 0)) (C128 #C(0 1)) (I ("sexpr.Interface" 0)))`,
+			`((B nil) (F32 0) (f64 1.5) (C64 #C(0 0)) (C128 #C(0 1)) (i ("github.com/budougumi0617/gopl/ch12/ex13/sexpr.Interface" 0)))`,
 		},
 	}
 	for _, test := range tests {

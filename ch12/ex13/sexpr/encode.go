@@ -52,6 +52,7 @@ func encode(buf *bytes.Buffer, v reflect.Value) error {
 	case reflect.Struct: // ((name value) ...)
 		buf.WriteByte('(')
 		for i := 0; i < v.NumField(); i++ {
+			// Replace field name as encoding/json
 			fieldInfo := v.Type().Field(i)
 			tag := fieldInfo.Tag
 			name := tag.Get("sexpr")
@@ -62,7 +63,7 @@ func encode(buf *bytes.Buffer, v reflect.Value) error {
 			if i > 0 {
 				buf.WriteByte(' ')
 			}
-			fmt.Fprintf(buf, "(%s ", v.Type().Field(i).Name)
+			fmt.Fprintf(buf, "(%s ", name)
 			if err := encode(buf, v.Field(i)); err != nil {
 				return err
 			}
@@ -103,8 +104,13 @@ func encode(buf *bytes.Buffer, v reflect.Value) error {
 		fmt.Fprintf(buf, "#C(%g %g)", real(c), imag(c))
 
 	case reflect.Interface:
-		fmt.Fprintf(buf, "(%q ", reflect.Indirect(v).Type())
-		encode(buf, reflect.Indirect(v).Elem())
+		buf.WriteByte('(')
+		t := v.Type()
+		fmt.Fprintf(buf, `"%s.%s" `, t.PkgPath(), t.Name())
+
+		if err := encode(buf, v.Elem()); err != nil {
+			return err
+		}
 		buf.WriteByte(')')
 
 	default: // chan, func
