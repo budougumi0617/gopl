@@ -1,4 +1,4 @@
-engines:
+plugins:
  gofmt:
     enabled: true
  govet:
