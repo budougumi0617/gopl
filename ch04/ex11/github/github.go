@@ -1,11 +1,12 @@
 // Copyright 2017 budougumi0617 All Rights Reserved.
+
 // Package github provides a Go API for the GitHub issue tracker.
 // See https://developer.github.com/v3/search/#search-issues.
 package github
 
 import "time"
 
-// IssuesURL URL of API
+// GitHubAPIURL is  URL of API
 const GitHubAPIURL = "https://api.github.com/repos/"
 
 // IssuesSearchResult search result
@@ -37,6 +38,7 @@ type NewIssue struct {
 	Body  string `json:"body"`
 }
 
+// CloseIssue has issue status.
 type CloseIssue struct {
 	State string `json:"state"`
 }
