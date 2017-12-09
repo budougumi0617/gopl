@@ -20,7 +20,7 @@ func TestEcho(t *testing.T) {
 
 	for _, test := range tests {
 		os.Args = test.args
-		out = new(bytes.Buffer) // captured output
+		out = &bytes.Buffer{} // captured output
 		main()
 		got := out.(*bytes.Buffer).String()
 		if got != test.expected {
